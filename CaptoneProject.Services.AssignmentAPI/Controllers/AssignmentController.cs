@@ -69,6 +69,20 @@ namespace CaptoneProject.Services.AssignmentAPI.Controllers
                 return StatusCode(500, $"Error updating assignment: {ex.Message}");
             }
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id, [FromQuery] string trainerId)
+        {
+            try
+            {
+                var deleted = await _assignmentRepository.DeleteAssignment(trainerId,id);
+                if (!deleted) return NotFound("Assignment not found or access denied.");
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error deleting Assignment: {ex.Message}");
+            }
+        }
 
     }
 }
