@@ -59,6 +59,7 @@ namespace CaptoneProject.Services.AssignmentAPI.Controllers
                 if (existing == null) return NotFound("Assignment not found.");
 
                 var updated=_mapper.Map<Assignment>(assignmentDto);
+                updated.Id=existing.Id;
                 await _assignmentRepository.UpdateAssignment(id,updated,trainerId);
                 var response = _mapper.Map<AssignmentResponseDto>(updated);
                 return Ok(response);
