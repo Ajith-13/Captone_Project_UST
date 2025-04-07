@@ -1,0 +1,11 @@
+﻿namespace CaptoneProject.Services.AssignmentAPI.Data.Dto.AssignmentSubmission
+{
+    public class AssignmentSubmissionResponseDto
+    {
+        public int Id { get; set; }
+        public int AssignmentId { get; set; }
+        public string FilePath { get; set; }
+        public DateTime SubmittedAt { get; set; }
+        public int? MarksObtained { get; set; }
+    }
+}
