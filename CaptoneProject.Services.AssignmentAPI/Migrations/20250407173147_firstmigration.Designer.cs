@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CaptoneProject.Services.AssignmentAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250406180957_addedDatabase")]
-    partial class addedDatabase
+    [Migration("20250407173147_firstmigration")]
+    partial class firstmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,38 @@ namespace CaptoneProject.Services.AssignmentAPI.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.Assignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AssignmentQuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LearnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MarksScored")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignmentQuestionId");
+
+                    b.ToTable("Assignments");
+                });
+
+            modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.AssignmentQuestion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,52 +94,23 @@ namespace CaptoneProject.Services.AssignmentAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Assignments");
-                });
-
-            modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.AssignmentSubmission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AssignmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LearnerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MarksScored")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssignmentId");
-
-                    b.ToTable("Submissions");
-                });
-
-            modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.AssignmentSubmission", b =>
-                {
-                    b.HasOne("CaptoneProject.Services.AssignmentAPI.Models.Assignment", "Assignment")
-                        .WithMany("Submissions")
-                        .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Assignment");
+                    b.ToTable("AssignmentQuestions");
                 });
 
             modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.Assignment", b =>
                 {
-                    b.Navigation("Submissions");
+                    b.HasOne("CaptoneProject.Services.AssignmentAPI.Models.AssignmentQuestion", "AssignmentQuestion")
+                        .WithMany("Assignments")
+                        .HasForeignKey("AssignmentQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AssignmentQuestion");
+                });
+
+            modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.AssignmentQuestion", b =>
+                {
+                    b.Navigation("Assignments");
                 });
 #pragma warning restore 612, 618
         }

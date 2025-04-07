@@ -1,8 +1,9 @@
 ﻿namespace CaptoneProject.Services.AssignmentAPI.Data.Dto.AssignmentSubmission
 {
-    public class AssignmentSubmissionDto
+    public class Assignment
     {
+        public string LearnerId { get; set; }
+        public IFormFile FilePath { get; set; }
         public int AssignmentId { get; set; }
-        public IFormFile File { get; set; }
     }
 }

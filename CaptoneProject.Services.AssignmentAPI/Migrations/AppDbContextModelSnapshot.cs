@@ -30,6 +30,38 @@ namespace CaptoneProject.Services.AssignmentAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AssignmentQuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LearnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MarksScored")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignmentQuestionId");
+
+                    b.ToTable("Assignments");
+                });
+
+            modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.AssignmentQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
@@ -59,52 +91,23 @@ namespace CaptoneProject.Services.AssignmentAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Assignments");
-                });
-
-            modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.AssignmentSubmission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AssignmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LearnerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MarksScored")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssignmentId");
-
-                    b.ToTable("Submissions");
-                });
-
-            modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.AssignmentSubmission", b =>
-                {
-                    b.HasOne("CaptoneProject.Services.AssignmentAPI.Models.Assignment", "Assignment")
-                        .WithMany("Submissions")
-                        .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Assignment");
+                    b.ToTable("AssignmentQuestions");
                 });
 
             modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.Assignment", b =>
                 {
-                    b.Navigation("Submissions");
+                    b.HasOne("CaptoneProject.Services.AssignmentAPI.Models.AssignmentQuestion", "AssignmentQuestion")
+                        .WithMany("Assignments")
+                        .HasForeignKey("AssignmentQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AssignmentQuestion");
+                });
+
+            modelBuilder.Entity("CaptoneProject.Services.AssignmentAPI.Models.AssignmentQuestion", b =>
+                {
+                    b.Navigation("Assignments");
                 });
 #pragma warning restore 612, 618
         }

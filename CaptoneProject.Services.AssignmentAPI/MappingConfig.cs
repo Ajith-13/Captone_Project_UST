@@ -10,11 +10,11 @@ namespace CaptoneProject.Services.AssignmentAPI
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                config.CreateMap<Assignment, AssignmentDto>();
-                config.CreateMap<AssignmentDto, Assignment>();
+                config.CreateMap<AssignmentQuestion, AssignmentQuestionDto>();
+                config.CreateMap<AssignmentQuestionDto, AssignmentQuestion>();
 
-                config.CreateMap<AssignmentResponseDto, Assignment>();
-                config.CreateMap<Assignment, AssignmentResponseDto>();
+                config.CreateMap<AssignmentQuestionResponseDto, AssignmentQuestion>();
+                config.CreateMap<AssignmentQuestion, AssignmentQuestionResponseDto>();
             });
             return mappingConfig;
         }

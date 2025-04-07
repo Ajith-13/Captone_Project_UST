@@ -1,6 +1,6 @@
 ﻿namespace CaptoneProject.Services.AssignmentAPI.Data.Dto.Assignment
 {
-    public class AssignmentDto
+    public class AssignmentQuestionDto
     {
         public string Title { get; set; }
         public string Description { get; set; }
