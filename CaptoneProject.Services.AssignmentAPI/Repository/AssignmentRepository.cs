@@ -11,24 +11,34 @@ namespace CaptoneProject.Services.AssignmentAPI.Repository
         {
             _context = context;
         }
-        public async Task<IEnumerable<Assignment>> GetAllAssignmentsByQuestionId(int assignmentQuestionId)
+
+        public async Task<Assignment> AddAssignment(Assignment assignment)
         {
-            return await _context.Assignments
-                .Where(a => a.AssignmentQuestionId == assignmentQuestionId)
-                .ToListAsync();
+            await _context.Assignments.AddAsync(assignment);
+            await _context.SaveChangesAsync();
+            return assignment;
+        }
+
+        //public async Task<bool> DeleteAssignment(string trainerId, int assignmentId)
+        //{
+        //    var assignment=await _context.Assignments.FirstOrDefaultAsync(a=>a.Id==assignmentId);
+        //    if (assignment != null)
+        //    {
+        //       _context.Assignments.Remove(assignment);
+        //        _context.SaveChanges();
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+        public async Task<IEnumerable<Assignment>> GetAllAssignment()
+        {
+            return await _context.Assignments.ToListAsync();
         }
 
         public async Task<Assignment> GetAssignmentById(int id)
         {
-            return await _context.Assignments
-                .FirstOrDefaultAsync(a => a.Id == id);
-        }
-
-        public async Task<Assignment> SubmitAssignment(Assignment assignmentSubmission)
-        {
-            await _context.Assignments.AddAsync(assignmentSubmission);
-            await _context.SaveChangesAsync();
-            return assignmentSubmission;
+           return await _context.Assignments.FindAsync(id);
         }
     }
 }

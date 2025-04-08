@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CaptoneProject.Services.AssignmentAPI.Data.Dto.Assignment;
+using CaptoneProject.Services.AssignmentAPI.Data.Dto.AssignmentSubmission;
 using CaptoneProject.Services.AssignmentAPI.Models;
 
 namespace CaptoneProject.Services.AssignmentAPI
@@ -15,6 +16,12 @@ namespace CaptoneProject.Services.AssignmentAPI
 
                 config.CreateMap<AssignmentQuestionResponseDto, AssignmentQuestion>();
                 config.CreateMap<AssignmentQuestion, AssignmentQuestionResponseDto>();
+
+                config.CreateMap<Assignment,AssignmentResponseDto>();
+                config.CreateMap<AssignmentResponseDto,Assignment>();
+
+                config.CreateMap<Assignment, AssignmentDto>();
+                config.CreateMap<AssignmentDto,Assignment>();
             });
             return mappingConfig;
         }
