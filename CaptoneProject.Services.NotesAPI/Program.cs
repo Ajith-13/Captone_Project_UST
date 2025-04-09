@@ -1,11 +1,11 @@
 
 using AutoMapper;
-using CaptoneProject.Services.CourseAPI.Data;
-using CaptoneProject.Services.CourseAPI.Repository;
+using CaptoneProject.Services.NotesAPI.Data;
+using CaptoneProject.Services.NotesAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
-namespace CaptoneProject.Services.CourseAPI
+namespace CaptoneProject.Services.NotesAPI
 {
     public class Program
     {
@@ -19,19 +19,20 @@ namespace CaptoneProject.Services.CourseAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddDbContext<AppDbContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("CourseDB")); });
-            //adding mapper
+
+            builder.Services.AddDbContext<AppDbContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("NotesDB")); });
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             builder.Services.AddSingleton(mapper);
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            // when you are using the Interface in controller use the below sentence
-            builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-            builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
+
+            builder.Services.AddScoped<INotesRepository, NotesRepository>();
             builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -50,7 +51,16 @@ namespace CaptoneProject.Services.CourseAPI
 
             app.Run();
         }
-
-        
+        static void ApplyMigration(WebApplication? app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                if (_db.Database.GetPendingMigrations().Count() > 0)
+                {
+                    _db.Database.Migrate();
+                }
+            }
+        }
     }
 }
