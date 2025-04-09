@@ -47,7 +47,7 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                 return StatusCode(500, $"Error retrieving courses: {ex.Message}");
             }
         }
-        [HttpGet("{id}")]
+        [HttpGet("{userid}")]
         public async Task<IActionResult> GetById(int id)
         {
             try

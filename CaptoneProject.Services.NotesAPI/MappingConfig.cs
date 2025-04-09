@@ -12,6 +12,9 @@ namespace CaptoneProject.Services.NotesAPI
             {
                 config.CreateMap<NotesDto, Notes>();
                 config.CreateMap<Notes, NotesDto>();
+
+                config.CreateMap<NotesResponseDto, Notes>();
+                config.CreateMap<Notes, NotesResponseDto>();
             });
             return mappingConfig;
         }

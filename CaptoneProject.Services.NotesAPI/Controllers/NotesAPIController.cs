@@ -20,80 +20,84 @@ namespace CaptoneProject.Services.NotesAPI.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllNotes()
+        {
+            try
+            {
+                
+                var notes = await _notesRepository.GetAllNotes();
+                var response = _mapper.Map<IEnumerable<NotesResponseDto>>(notes);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error retrieving notes: {ex.Message}");
+            }
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetNotesByUser(int userId)
+        {
+            try
+            {
+                var notes = await _notesRepository.GetNotesByUser(userId);
+                var response = _mapper.Map<IEnumerable<NotesResponseDto>>(notes);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error retrieving notes: {ex.Message}");
+            }
+        }
+
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateNote([FromBody] NotesDto notesDto, [FromQuery] int Id)
+        public async Task<IActionResult> CreateNote( NotesDto notesDto, int userid)
         {
             try
             {
                 var notes = _mapper.Map<Notes>(notesDto);
-                var creatednotes = await _notesRepository.CreateNote(notes, Id);
+                var creatednotes = await _notesRepository.CreateNote(notes, userid);
                 var response = _mapper.Map<NotesResponseDto>(creatednotes);
-                return CreatedAtAction(nameof(GetById), new { id = creatednotes.Id }, response);
+                return CreatedAtAction(nameof(GetNotesByUser), new { id = creatednotes.Id }, response);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error creating the course:{ex.Message}");
+                return StatusCode(500, $"Error creating the notes:{ex.Message}");
             }
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        
+        
+        [HttpPut("{userid}")]
+        public async Task<IActionResult> UpdateNote(  int userid, NotesDto notesDto)
         {
             try
             {
-                var courses = await _notesRepository.GetAllCourse();
-                var response = _mapper.Map<IEnumerable<NotesResponseDto>>(courses);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error retrieving courses: {ex.Message}");
-            }
-        }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            try
-            {
-                var course = await _notesRepository.GetById(id);
-                if (course == null) return NotFound("Course not found.");
-                var response = _mapper.Map<NotesResponseDto>(course);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error retrieving course: {ex.Message}");
-            }
-        }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] NotesDto courseDto, [FromQuery] string trainerId)
-        {
-            try
-            {
-                var course = _mapper.Map<Notes>(courseDto);
-                var updated = await _notesRepository.Update(id, course, trainerId);
-                if (updated == null) return NotFound("Course not found or access denied.");
+                var notes = _mapper.Map<Notes>(notesDto);
+                var updated = await _notesRepository.UpdateNote(userid, notes);
+                if (updated == null) return NotFound("Notes not found or access denied.");
                 var response = _mapper.Map<NotesResponseDto>(updated);
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error updating course: {ex.Message}");
+                return StatusCode(500, $"Error updating notes: {ex.Message}");
             }
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id, [FromQuery] string trainerId)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteNote(int Id)
         {
             try
             {
-                var deleted = await _notesRepository.Delete(id, trainerId);
+                var deleted = await _notesRepository.DeleteNote(Id);
                 if (!deleted) return NotFound("Course not found or access denied.");
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error deleting course: {ex.Message}");
+                return StatusCode(500, $"Error deleting notes: {ex.Message}");
             }
         }
 

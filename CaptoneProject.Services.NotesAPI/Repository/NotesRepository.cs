@@ -13,7 +13,12 @@ namespace CaptoneProject.Services.NotesAPI.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<Notes>> GetNotesByUser(string userId)
+        public async Task<IEnumerable<Notes>> GetAllNotes()
+        {
+            //while;dbfdnc
+            return await _context.Notes.ToListAsync();
+        }
+        public async Task<IEnumerable<Notes>> GetNotesByUser(int userId)
         {
             return await _context.Notes
                     .Where(n => n.UserId == userId)
@@ -21,18 +26,12 @@ namespace CaptoneProject.Services.NotesAPI.Repository
             .ToListAsync();
         }
 
-        public async Task<List<Notes>> GetNoteByCreatedDate(DateTime dateCreated, string userid)
-        {
-            return await _context.Notes.Where(n => n.DateCreated.Date == dateCreated.Date && n.UserId == userid).ToListAsync();
-        }
+        
 
 
-        public async Task<List<Notes>> GetNoteByModifiedDate(DateTime dateModified, string userid)
-        {
-            return await _context.Notes.Where(n => n.DateModified.Date == dateModified.Date && n.UserId == userid).ToListAsync();
-        }
+        
 
-        public async Task<Notes> CreateNote(Notes notes, string userid)
+        public async Task<Notes> CreateNote(Notes notes, int userid)
         {
             Notes n = new Notes()
             {
@@ -48,9 +47,9 @@ namespace CaptoneProject.Services.NotesAPI.Repository
             return n;
         }
 
-        public async Task<bool> UpdateNote(int id, Notes notes)
+        public async Task<bool> UpdateNote(int userid, Notes notes)
         {
-            var n = _context.Notes.FirstOrDefault(n => n.Id == id);
+            var n = _context.Notes.FirstOrDefault(n => n.UserId == userid);
             if (n == null)
             {
                 return false;
@@ -65,9 +64,9 @@ namespace CaptoneProject.Services.NotesAPI.Repository
             return true;
         }
 
-        public async Task<bool> DeleteNote(int id)
+        public async Task<bool> DeleteNote(int Id)
         {
-            var notes = await _context.Notes.FindAsync(id);
+            var notes = await _context.Notes.FindAsync(Id);
             if (notes == null)
             {
                 return false;

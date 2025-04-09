@@ -18,14 +18,14 @@ namespace CaptoneProject.Services.NotesAPI.Data
 
             modelBuilder.Entity<Notes>().HasData(new Notes
             {
+                UserId = 1,
                 Id = 1,
                 Title = "Python",
                 Description = "Python programming is a high-level, general-purpose, interpreted, object-oriented programming" +
                 " language known for its readability and versatility," +
                 " used for various tasks like web development, data analysis," +
                 " and software development.",
-                Resources = "GeeksForGeeks",
-                UserId="1"
+                Resources = "GeeksForGeeks"
 
             });
         }
