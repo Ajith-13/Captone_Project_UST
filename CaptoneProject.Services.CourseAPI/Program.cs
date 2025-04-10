@@ -32,6 +32,8 @@ namespace CaptoneProject.Services.CourseAPI
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
+            builder.WebHost.UseWebRoot("wwwroot");
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

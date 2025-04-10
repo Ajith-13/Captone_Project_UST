@@ -60,6 +60,13 @@ namespace CaptoneProject.Services.AuthAPI
             app.UseAuthorization();
 
             app.MapControllers();
+            var serviceProvider = builder.Services.BuildServiceProvider();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                context.Database.EnsureCreated();
+            }
+
             using (var scope = app.Services.CreateScope())
             {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();

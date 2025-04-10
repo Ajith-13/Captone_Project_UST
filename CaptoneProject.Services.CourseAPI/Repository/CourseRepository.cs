@@ -12,9 +12,8 @@ namespace CaptoneProject.Services.CourseAPI.Repository
         {
             _context = context;
         }
-        public async Task<Course> AddCourse(Course course, string trainerId)
+        public async Task<Course> AddCourse(Course course)
         {
-            course.TrainerId = trainerId;
             _context.Courses.AddAsync(course);
             await _context.SaveChangesAsync();
             return course;
