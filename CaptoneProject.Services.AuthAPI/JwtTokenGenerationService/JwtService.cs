@@ -24,7 +24,7 @@ namespace CaptoneProject.Services.AuthAPI.JwtTokenGenerationService
             var roles = _userManager.GetRolesAsync(user).Result;
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),   
             }.Union(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 

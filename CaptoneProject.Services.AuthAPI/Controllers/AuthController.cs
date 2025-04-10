@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CaptoneProject.Services.AuthAPI.Controllers
 {
@@ -95,6 +96,13 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             var currentUserId = User.Identity.Name;
             Console.WriteLine($"{currentUserId}");
             return Ok(currentUserId);
+        }
+        [HttpGet("learner")]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme,Roles = "LEARNER")]
+        public IActionResult GetLearnerDetails()
+        {
+            var currentUserName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return Ok(currentUserName);
         }
     }
 }
