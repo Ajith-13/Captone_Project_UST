@@ -1,0 +1,19 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/Auth",
+      "UpstreamHttpMethod": [ "Post", "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5169
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Auth"
+    }
+  ],
+  "GlobalConfiguration": {
+     "BaseUrl": "http://localhost:5000"
+  }
+}
