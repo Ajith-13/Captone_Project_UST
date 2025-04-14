@@ -27,13 +27,13 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
             _response = new ResponseDto();
         }
         [HttpPost]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
-        public async Task<IActionResult> AddCourse([FromForm] CourseDto courseDto,string trainerId)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
+        public async Task<IActionResult> AddCourse([FromForm] CourseDto courseDto)
         {
             try
             {
-                //var trainerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if(string.IsNullOrEmpty(trainerId))
+                var trainerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(trainerId))
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Trainer Id Not found";
@@ -108,11 +108,19 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                 return StatusCode(500,_response);
             }
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromForm] CourseDto courseDto, [FromQuery] string trainerId)
+        [HttpPut("{courseId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
+        public async Task<IActionResult> Update(int courseId, [FromForm] CourseDto courseDto)
         {
             try
             {
+                var trainerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(trainerId))
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Trainer Id Not found";
+                    return Unauthorized(_response);
+                }
                 if (string.IsNullOrEmpty(_environment.WebRootPath))
                 {
                     _response.IsSuccess = false;
@@ -123,11 +131,11 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                
                 var course = _mapper.Map<Course>(courseDto);
                 course.ThumbnailImagePath = thumbnailPath;
-                var updated = await _courseRepository.Update(id, course, trainerId);
+                var updated = await _courseRepository.Update(courseId, course, trainerId);
                 if (updated == null)
                 {
                     _response.IsSuccess = false;
-                    _response.Message = "Not able to updat";
+                    _response.Message = "Not able to update";
                 return NotFound(_response);
                 }
                 var response = _mapper.Map<CourseResponseDto>(updated);
@@ -143,12 +151,20 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                 return StatusCode(500,_response);
             }
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id, [FromQuery] string trainerId)
+        [HttpDelete("{CourseId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
+        public async Task<IActionResult> Delete(int CourseId)
         {
             try
             {
-                var deleted = await _courseRepository.Delete(id, trainerId);
+                var trainerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(trainerId))
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Trainer Id Not found";
+                    return Unauthorized(_response);
+                }
+                var deleted = await _courseRepository.Delete(CourseId, trainerId);
                 if (!deleted)
                 {
                     _response.IsSuccess = false;

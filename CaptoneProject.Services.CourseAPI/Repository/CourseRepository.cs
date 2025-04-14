@@ -19,9 +19,9 @@ namespace CaptoneProject.Services.CourseAPI.Repository
             return course;
         }
 
-        public async Task<bool> Delete(int id, string trainerId)
+        public async Task<bool> Delete(int courseId, string trainerId)
         {
-            var course = await _context.Courses.FirstOrDefaultAsync(c => c.Id == id && c.TrainerId == trainerId);
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.Id == courseId && c.TrainerId == trainerId);
             if(course is null)
             {
                 return false;
@@ -50,6 +50,7 @@ namespace CaptoneProject.Services.CourseAPI.Repository
             }
             existingCourse.Title = course.Title;
             existingCourse.Description = course.Description;
+            existingCourse.ThumbnailImagePath = course.ThumbnailImagePath;
             await _context.SaveChangesAsync();
             return existingCourse;
         }
