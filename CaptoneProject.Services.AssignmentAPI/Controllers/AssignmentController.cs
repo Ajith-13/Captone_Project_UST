@@ -38,7 +38,7 @@ namespace CaptoneProject.Services.AssignmentAPI.Controllers
         {
             try
             {
-                var allAssignments = _assignmentRepository.GetAllAssignment();
+                var allAssignments = await _assignmentRepository.GetAllAssignment();
                 var response = _mapper.Map<IEnumerable<AssignmentResponseDto>>(allAssignments);
                 return Ok(response);
             }

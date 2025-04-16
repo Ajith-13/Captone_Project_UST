@@ -17,7 +17,7 @@ namespace CaptoneProject.Services.CourseAPI
                 config.CreateMap<Course, CourseResponseDto>();
                 config.CreateMap<CourseResponseDto, Course>();
 
-                config.CreateMap<ModuleDto, Module>();
+                config.CreateMap<ModuleDto, Module>().ForMember(dest => dest.Course, opt => opt.Ignore());
                 config.CreateMap<Module, ModuleDto>();
 
                 config.CreateMap<Module, ModuleResponseDto>();

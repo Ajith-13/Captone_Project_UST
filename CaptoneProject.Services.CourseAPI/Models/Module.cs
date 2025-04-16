@@ -13,6 +13,9 @@ namespace CaptoneProject.Services.CourseAPI.Models
         public string? QuizId { get; set; }
         [Required]
         public int CourseId { get; set; }
+        [Required]
+        public string TrainerId { get; set; }
+
         public Course Course { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
