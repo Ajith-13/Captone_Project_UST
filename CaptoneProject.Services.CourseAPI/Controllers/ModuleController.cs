@@ -21,16 +21,18 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
         private readonly IModuleRepository _moduleRepository;
         private readonly IMapper _mapper;
         private readonly ResponseDto _response;
-        public ModuleController(ICourseRepository courseRepository,IModuleRepository moduleRepository,IMapper mapper)
+        private readonly IWebHostEnvironment _environment;
+
+        public ModuleController(ICourseRepository courseRepository,IModuleRepository moduleRepository,IMapper mapper,IWebHostEnvironment environment)
         {
             _courseRepository = courseRepository;
             _moduleRepository = moduleRepository;
             _mapper = mapper;
+            _environment = environment;
             _response=new ResponseDto();
         }
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
-        [HttpPost]
         public async Task<IActionResult> AddModule([FromForm] ModuleDto moduleDto, int courseId)
         {
             try
@@ -53,23 +55,10 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                 var module = _mapper.Map<Module>(moduleDto);
                 module.Course = course;
                 module.CourseId = courseId;
-                if (moduleDto.File != null)
-                {
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(moduleDto.File.FileName);
-                    var filePath = Path.Combine("UploadedFiles", fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await moduleDto.File.CopyToAsync(stream);
-                    }
-
-                    module.FilePath = filePath;
-                    module.FileType = Path.GetExtension(moduleDto.File.FileName).ToLower();
-                }
-                else
-                {
-                    module.Description = moduleDto.Description;
-                }
+                var filePath = await UploadModuleAsync(moduleDto.File);
+                module.Description = moduleDto.Description;
+                module.FilePath= filePath;
+                
 
                 await _moduleRepository.AddModule(module);
                 var response = _mapper.Map<ModuleResponseDto>(module);
@@ -212,6 +201,27 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                 _response.Message="Exception"+ex.Message;
                 return StatusCode(500,_response);
             }
+        }
+        private async Task<string?> UploadModuleAsync(IFormFile upload)
+        {
+            if (upload == null)
+                return null;
+
+            if (string.IsNullOrEmpty(_environment.WebRootPath))
+                throw new InvalidOperationException("WebRootPath is not configured.");
+
+            var uploadsFolder = Path.Combine(_environment.WebRootPath, "module");
+            Directory.CreateDirectory(uploadsFolder);
+
+            var uniqueFileName = $"{Guid.NewGuid()}_{upload.FileName}";
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await upload.CopyToAsync(fileStream);
+            }
+
+            return $"/upload/{uniqueFileName}";
         }
     }
 }

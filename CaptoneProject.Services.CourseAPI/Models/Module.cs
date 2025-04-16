@@ -8,7 +8,6 @@ namespace CaptoneProject.Services.CourseAPI.Models
         [Required]
         public string Title { get; set; }
         public string? FilePath { get; set; }
-        public string? FileType { get; set; }
         public string? Description { get; set; }
         public string? AssignmentId { get; set; }
         public string? QuizId { get; set; }
