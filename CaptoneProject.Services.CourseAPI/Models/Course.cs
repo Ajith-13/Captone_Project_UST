@@ -11,6 +11,7 @@ namespace CaptoneProject.Services.CourseAPI.Models
         public string Description { get; set; }
         [Required]
         public string TrainerId { get; set; }
+        public string ThumbnailImagePath { get; set; }
         public ICollection<Module> Modules { get; set; } = new List<Module>();
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

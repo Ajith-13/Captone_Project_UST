@@ -5,7 +5,7 @@ namespace CaptoneProject.Services.CourseAPI.Repository
 {
     public interface ICourseRepository
     {
-        Task<Course> AddCourse(Course course,string trainerId);
+        Task<Course> AddCourse(Course course);
         Task<IEnumerable<Course>> GetAllCourse();
         Task<Course> GetById(int id);
         Task<Course?> Update(int courseId, Course course, string trainerId);

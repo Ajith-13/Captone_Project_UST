@@ -6,17 +6,17 @@ namespace CaptoneProject.Services.AssignmentAPI.Data
     public class AppDbContext:DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public DbSet<AssignmentQuestion> AssignmentQuestions { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
-        public DbSet<AssignmentSubmission> Submissions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Assignment>()
-                .HasMany(a => a.Submissions)
-                .WithOne(s => s.Assignment)
-                .HasForeignKey(s => s.AssignmentId)
-                .OnDelete(DeleteBehavior.Cascade);
+                        .HasOne(a => a.AssignmentQuestion)
+                        .WithMany(q => q.Assignments)
+                        .HasForeignKey(a => a.AssignmentQuestionId) 
+                        .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
