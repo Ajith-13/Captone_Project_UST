@@ -6,8 +6,6 @@ namespace CaptoneProject.Services.AssignmentAPI.Repository
     {
         Task<IEnumerable<Assignment>> GetAllAssignment();
         Task<Assignment> GetAssignmentById(int id);
-        Task<Assignment> AddAssignment(Assignment assignment);
-        Task<Assignment> UpdateAssignment(int assignmentId,Assignment assignment,string trainerId);
-        Task<bool> DeleteAssignment(string trainerId,int assignmentId);
+        Task<Assignment>AddAssignment(Assignment assignmentSubmission);
     }
 }

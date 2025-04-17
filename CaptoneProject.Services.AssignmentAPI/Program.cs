@@ -24,6 +24,7 @@ namespace CaptoneProject.Services.AssignmentAPI
             builder.Services.AddSingleton(mapper);
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            builder.Services.AddScoped<IAssignmentQuestionRepository, AssignmentQuestionRepository>();
             builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
 
 

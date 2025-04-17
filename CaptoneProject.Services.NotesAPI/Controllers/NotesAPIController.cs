@@ -3,8 +3,11 @@ using CaptoneProject.Services.NotesAPI.Data;
 using CaptoneProject.Services.NotesAPI.Models;
 using CaptoneProject.Services.NotesAPI.Models.Dto;
 using CaptoneProject.Services.NotesAPI.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CaptoneProject.Services.NotesAPI.Controllers
 {
@@ -35,12 +38,14 @@ namespace CaptoneProject.Services.NotesAPI.Controllers
                 return StatusCode(500, $"Error retrieving notes: {ex.Message}");
             }
         }
-
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> GetNotesByUser(int userId)
+        [HttpGet("{user}")]
+        //public async Task<IActionResult> GetNotesByUser(string userId)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
+        public async Task<IActionResult> GetNotesByUser()
         {
             try
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var notes = await _notesRepository.GetNotesByUser(userId);
                 var response = _mapper.Map<IEnumerable<NotesResponseDto>>(notes);
                 return Ok(response);
@@ -54,28 +59,37 @@ namespace CaptoneProject.Services.NotesAPI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateNote( NotesDto notesDto, int userid)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER,LEARNER")]
+
+        public async Task<IActionResult> CreateNote( NotesDto notesDto)
         {
             try
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var notes = _mapper.Map<Notes>(notesDto);
-                var creatednotes = await _notesRepository.CreateNote(notes, userid);
-                var response = _mapper.Map<NotesResponseDto>(creatednotes);
-                return CreatedAtAction(nameof(GetNotesByUser), new { id = creatednotes.Id }, response);
+                notes.UserId = userId;
+                notes.DateCreated = DateTime.UtcNow;
+                notes.DateModified = DateTime.UtcNow;
+
+                var created = await _notesRepository.CreateNote(notes, userId);
+                var response = _mapper.Map<NotesResponseDto>(created);
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error creating the notes:{ex.Message}");
+                return StatusCode(500, $"Error creating note: {ex.Message}");
             }
         }
         
         
-        [HttpPut("{userid}")]
-        public async Task<IActionResult> UpdateNote(  int userid, NotesDto notesDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateNote(int id, NotesDto notesDto)
         {
             try
             {
+                var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var notes = _mapper.Map<Notes>(notesDto);
+                notes.Id = id;
                 var updated = await _notesRepository.UpdateNote(userid, notes);
                 if (updated == null) return NotFound("Notes not found or access denied.");
                 var response = _mapper.Map<NotesResponseDto>(updated);

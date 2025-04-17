@@ -18,7 +18,7 @@ namespace CaptoneProject.Services.NotesAPI.Repository
             //while;dbfdnc
             return await _context.Notes.ToListAsync();
         }
-        public async Task<IEnumerable<Notes>> GetNotesByUser(int userId)
+        public async Task<IEnumerable<Notes>> GetNotesByUser(string userId)
         {
             return await _context.Notes
                     .Where(n => n.UserId == userId)
@@ -31,7 +31,7 @@ namespace CaptoneProject.Services.NotesAPI.Repository
 
         
 
-        public async Task<Notes> CreateNote(Notes notes, int userid)
+        public async Task<Notes> CreateNote(Notes notes, string userid)
         {
             Notes n = new Notes()
             {
@@ -47,18 +47,15 @@ namespace CaptoneProject.Services.NotesAPI.Repository
             return n;
         }
 
-        public async Task<bool> UpdateNote(int userid, Notes notes)
+        public async Task<bool> UpdateNote(string userid, Notes notes)
         {
-            var n = _context.Notes.FirstOrDefault(n => n.UserId == userid);
-            if (n == null)
-            {
-                return false;
-            }
-            n.Title = notes.Title;
-            n.Description = notes.Description;
-            n.DateCreated = notes.DateCreated;
-            n.DateModified = notes.DateModified;
-            n.Resources = notes.Resources;
+            var existingNote = await _context.Notes.FirstOrDefaultAsync(n => n.Id == notes.Id && n.UserId == userid);
+            if (existingNote == null) return false;
+
+            existingNote.Title = notes.Title;
+            existingNote.Description = notes.Description;
+            existingNote.DateModified = notes.DateModified;
+            existingNote.Resources = notes.Resources;
 
             await _context.SaveChangesAsync();
             return true;

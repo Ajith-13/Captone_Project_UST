@@ -1,12 +1,10 @@
-﻿namespace CaptoneProject.Services.AssignmentAPI.Data.Dto.Assignment
+﻿namespace CaptoneProject.Services.AssignmentAPI.Data.Dto.AssignmentSubmission
 {
     public class AssignmentDto
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime DueDate { get; set; }
-        public int TotalMarks { get; set; }
-        public int CourseId { get; set; }
-        public int ModuleId { get; set; }
+        public string LearnerId { get; set; }
+        public IFormFile FilePath { get; set; }
+        //public int AssignmentId { get; set; }
+        public int AssignmentQuestionId { get;set; }
     }
 }

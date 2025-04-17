@@ -5,7 +5,7 @@ namespace CaptoneProject.Services.NotesAPI.Models
     public class Notes
     {
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         [Key]
         public int Id { get; set; }
         public DateTime DateCreated { get; set; }

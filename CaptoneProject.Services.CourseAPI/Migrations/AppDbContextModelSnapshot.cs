@@ -37,6 +37,10 @@ namespace CaptoneProject.Services.CourseAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ThumbnailImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -61,18 +65,17 @@ namespace CaptoneProject.Services.CourseAPI.Migrations
                     b.Property<string>("AssignmentId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContentData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ContentType")
-                        .HasColumnType("int");
-
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("QuizId")
                         .HasColumnType("nvarchar(max)");

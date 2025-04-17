@@ -2,7 +2,10 @@
 using AutoMapper;
 using CaptoneProject.Services.CourseAPI.Data;
 using CaptoneProject.Services.CourseAPI.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace CaptoneProject.Services.CourseAPI
@@ -32,6 +35,23 @@ namespace CaptoneProject.Services.CourseAPI
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
+            builder.WebHost.UseWebRoot("wwwroot");
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+            builder.Services.AddAuthorization();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

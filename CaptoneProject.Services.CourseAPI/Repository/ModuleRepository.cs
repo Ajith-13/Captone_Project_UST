@@ -70,8 +70,8 @@ namespace CaptoneProject.Services.CourseAPI.Repository
             if (existingModule is null)
                 return null;
             existingModule.Title = module.Title;
-            existingModule.ContentType = module.ContentType;
-            existingModule.ContentData = module.ContentData;
+            existingModule.FilePath = module.FilePath;
+            existingModule.Description = module.Description;
             existingModule.AssignmentId = module.AssignmentId;
             existingModule.QuizId = module.QuizId;
             existingModule.CourseId = module.CourseId;

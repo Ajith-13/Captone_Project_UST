@@ -18,7 +18,7 @@ namespace CaptoneProject.Services.NotesAPI.Data
 
             modelBuilder.Entity<Notes>().HasData(new Notes
             {
-                UserId = 1,
+                UserId = "1",
                 Id = 1,
                 Title = "Python",
                 Description = "Python programming is a high-level, general-purpose, interpreted, object-oriented programming" +

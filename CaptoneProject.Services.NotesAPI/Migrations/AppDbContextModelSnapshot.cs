@@ -48,8 +48,9 @@ namespace CaptoneProject.Services.NotesAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -64,7 +65,7 @@ namespace CaptoneProject.Services.NotesAPI.Migrations
                             Description = "Python programming is a high-level, general-purpose, interpreted, object-oriented programming language known for its readability and versatility, used for various tasks like web development, data analysis, and software development.",
                             Resources = "GeeksForGeeks",
                             Title = "Python",
-                            UserId = 1
+                            UserId = "1"
                         });
                 });
 #pragma warning restore 612, 618
