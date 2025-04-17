@@ -1,6 +1,7 @@
 ﻿using CaptoneProject.Services.AssignmentAPI.Data;
 using CaptoneProject.Services.AssignmentAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace CaptoneProject.Services.AssignmentAPI.Repository
 {
@@ -38,7 +39,13 @@ namespace CaptoneProject.Services.AssignmentAPI.Repository
 
         public async Task<Assignment> GetAssignmentById(int id)
         {
-           return await _context.Assignments.FindAsync(id);
+            return await _context.Assignments.FindAsync(id);
+        }
+        public async Task<Assignment> UpdateMark(Assignment assignment)
+        {
+            _context.Entry(assignment).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return assignment;
         }
     }
 }

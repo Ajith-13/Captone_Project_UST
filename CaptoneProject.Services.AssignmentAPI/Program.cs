@@ -29,6 +29,9 @@ namespace CaptoneProject.Services.AssignmentAPI
 
             builder.Services.AddScoped<IAssignmentQuestionRepository, AssignmentQuestionRepository>();
             builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+            builder.Services.AddScoped<IStreakLeaderBoard, StreakLeaderBoard>();
+            builder.WebHost.UseWebRoot("wwwroot");
+
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
