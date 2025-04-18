@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CaptoneProject.Services.AuthAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class adminadd : Migration
+    public partial class adadmin : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

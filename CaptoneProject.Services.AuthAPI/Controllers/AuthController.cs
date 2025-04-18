@@ -95,8 +95,8 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             await _userManager.AddToRoleAsync(user, "Learner");
             return Ok("User created successfully.");
         }
-        //[Authorize(Roles = "Admin")]
         [HttpPost("approve-trainer")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "ADMIN")]
         public async Task<IActionResult> ApproveTrainer([FromBody] TrainerApprovalDto model)
         {
             var user = await _userManager.FindByIdAsync(model.TrainerId);
@@ -112,7 +112,7 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
         }
         
         [HttpGet("pending-trainers")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "ADMIN")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "ADMIN")]
         public async Task<IActionResult> GetPendingTrainers()
         {
             var pendingTrainers = await _userManager.Users
