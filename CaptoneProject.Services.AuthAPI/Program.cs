@@ -29,7 +29,12 @@ namespace CaptoneProject.Services.AuthAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("AuthDB"));
             });
             builder.Services.AddScoped<JwtService>();
-            builder.Services.AddIdentity<ApplicationUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            builder.Services.AddIdentity<ApplicationUser,IdentityRole>(
+                options =>
+                {
+                    options.User.RequireUniqueEmail = true;
+                    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(
                 options =>
@@ -45,6 +50,16 @@ namespace CaptoneProject.Services.AuthAPI
                     };
                 });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularDev", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials();
+                });
+            });
             var app = builder.Build();
             
             // Configure the HTTP request pipeline.
@@ -57,6 +72,8 @@ namespace CaptoneProject.Services.AuthAPI
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+            app.UseCors("AllowAngularDev");
+
             app.UseAuthorization();
 
             app.MapControllers();
@@ -69,8 +86,12 @@ namespace CaptoneProject.Services.AuthAPI
 
             using (var scope = app.Services.CreateScope())
             {
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var serviceProvide = scope.ServiceProvider;
+
+                var roleManager = serviceProvide.GetRequiredService<RoleManager<IdentityRole>>();
                 await RoleSeeder.SeedRolesAsync(roleManager);
+                var userManager = serviceProvide.GetRequiredService<UserManager<ApplicationUser>>();
+                await AdminSeeder.SeedAdminAsync(userManager);
             }
 
             app.Run();
