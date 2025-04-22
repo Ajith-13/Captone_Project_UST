@@ -79,7 +79,13 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             {
                 return BadRequest("Email already in use.");
             }
+               existingUser = await _userManager.Users
+                .FirstOrDefaultAsync(u => u.UserName == model.UserName);
 
+            if (existingUser != null)
+            {
+                return Conflict("Username is already taken. Please choose another.");
+            }
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
@@ -89,7 +95,8 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
-                return BadRequest("User creation failed.");
+                var errorMessages = result.Errors.Select(e => e.Description).ToList();
+                return BadRequest(errorMessages);
             }
 
             await _userManager.AddToRoleAsync(user, "Learner");
@@ -142,7 +149,7 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
 
         }
 
-
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto model)
         {
@@ -169,7 +176,7 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
            
             var token = _jwtService.GenerateJwtToken(user);
 
-            return Ok(token);
+            return Ok(new {token});
         }
         [HttpGet("{trainerId}")]
         [Authorize(Roles ="TRAINER")]

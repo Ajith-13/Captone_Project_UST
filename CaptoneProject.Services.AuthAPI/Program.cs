@@ -50,6 +50,16 @@ namespace CaptoneProject.Services.AuthAPI
                     };
                 });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularDev", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials();
+                });
+            });
             var app = builder.Build();
             
             // Configure the HTTP request pipeline.
@@ -62,6 +72,8 @@ namespace CaptoneProject.Services.AuthAPI
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+            app.UseCors("AllowAngularDev");
+
             app.UseAuthorization();
 
             app.MapControllers();
