@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CaptoneProject.Services.AuthAPI.Controllers
@@ -21,7 +22,56 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             _userManager = userManager;
             _jwtService = jwtService;
         }
-        [HttpPost("signup")]
+        [HttpPost("register/trainer")]
+        public async Task<IActionResult> RegisterTrainer([FromForm] TrainerRegistrationDto trainerRegistrationDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var user = new ApplicationUser
+            {
+                UserName = trainerRegistrationDto.UserName,
+                Email = trainerRegistrationDto.Email,
+                ApprovalStatus = "Pending"
+            };
+
+            var result = await _userManager.CreateAsync(user, trainerRegistrationDto.Password);
+            if (!result.Succeeded) return BadRequest(result.Errors);
+
+            if (trainerRegistrationDto.Certificate != null)
+            {
+                var certificatePath = Path.Combine("Uploads/Certificates", $"{user.Id}_certificate.pdf");
+                var directoryPath = Path.GetDirectoryName(certificatePath);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+                using (var stream = new FileStream(certificatePath, FileMode.Create))
+                {
+                    await trainerRegistrationDto.Certificate.CopyToAsync(stream);
+                }
+                user.CertificatePath = certificatePath;
+            }
+
+            if (trainerRegistrationDto.Resume != null)
+            {
+                var resumePath = Path.Combine("Uploads/Resumes", $"{user.Id}_resume.pdf");
+                var resumeDirectoryPath = Path.GetDirectoryName(resumePath);
+                if (!Directory.Exists(resumeDirectoryPath))
+                {
+                    Directory.CreateDirectory(resumeDirectoryPath); // Ensure directory exists
+                }
+                using (var stream = new FileStream(resumePath, FileMode.Create))
+                {
+                    await trainerRegistrationDto.Resume.CopyToAsync(stream);
+                }
+                user.ResumePath = resumePath;
+            }
+            await _userManager.AddToRoleAsync(user, "Trainer");
+            await _userManager.UpdateAsync(user);
+
+            return Ok("Trainer registered successfully. Pending admin approval.");
+        }
+        [HttpPost("register/learner")]
         public async Task<IActionResult> SignUp([FromBody] RegisterDto model)
         {
             var existingUser = await _userManager.FindByEmailAsync(model.Email);
@@ -29,7 +79,13 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             {
                 return BadRequest("Email already in use.");
             }
+               existingUser = await _userManager.Users
+                .FirstOrDefaultAsync(u => u.UserName == model.UserName);
 
+            if (existingUser != null)
+            {
+                return Conflict("Username is already taken. Please choose another.");
+            }
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
@@ -39,25 +95,61 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
-                return BadRequest("User creation failed.");
+                var errorMessages = result.Errors.Select(e => e.Description).ToList();
+                return BadRequest(errorMessages);
             }
 
-            var role = model.Role.ToLower();
-            if (role == "trainer")
-            {
-                await _userManager.AddToRoleAsync(user, "Trainer");
-            }
-            else if (role == "learner")
-            {
-                await _userManager.AddToRoleAsync(user, "Learner");
-            }
-            else
-            {
-                return BadRequest("Invalid role specified.");
-            }
-
+            await _userManager.AddToRoleAsync(user, "Learner");
             return Ok("User created successfully.");
         }
+        [HttpPost("approve-trainer")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "ADMIN")]
+        public async Task<IActionResult> ApproveTrainer([FromBody] TrainerApprovalDto model)
+        {
+            var user = await _userManager.FindByIdAsync(model.TrainerId);
+            if (user == null) return NotFound("Trainer not found");
+            if(user.ApprovalStatus != "Pending")
+            {
+                return NotFound("Trainer already reviewed");
+            }
+            user.ApprovalStatus = model.IsApproved ? "Approved" : "Rejected";
+            await _userManager.UpdateAsync(user);
+
+            return Ok($"Trainer {user.UserName} has been {user.ApprovalStatus.ToLower()}.");
+        }
+        
+        [HttpGet("pending-trainers")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "ADMIN")]
+        public async Task<IActionResult> GetPendingTrainers()
+        {
+            var pendingTrainers = await _userManager.Users
+                                                    .Where(u => u.ApprovalStatus == "Pending")
+                                                    .ToListAsync();
+
+            var trainersWithRoles = new List<ApplicationUser>();
+
+            foreach (var user in pendingTrainers)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("TRAINER"))
+                {
+                    trainersWithRoles.Add(user);
+                }
+            }
+
+            return Ok(trainersWithRoles.Select(u => new
+            {
+                u.Id,
+                u.UserName,
+                u.Email,
+                u.ApprovalStatus,
+                u.CertificatePath,
+                u.ResumePath
+            }));
+
+        }
+
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto model)
         {
@@ -72,10 +164,19 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             {
                 return Unauthorized("Invalid credentials.");
             }
+            var roles = await _userManager.GetRolesAsync(user);
 
+            if (roles.Any(role => role.Equals("Trainer", StringComparison.OrdinalIgnoreCase)))
+            {
+                if (user.ApprovalStatus != "Approved")
+                {
+                    return Unauthorized("Trainer approval pending.");
+                }
+            }
+           
             var token = _jwtService.GenerateJwtToken(user);
 
-            return Ok(token);
+            return Ok(new {token});
         }
         [HttpGet("{trainerId}")]
         [Authorize(Roles ="TRAINER")]

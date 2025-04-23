@@ -46,14 +46,21 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                 }
 
                 var course = await _courseRepository.GetById(courseId);
-                if (course == null || course.TrainerId != trainerId)
+                if (course == null)
                 {
                     _response.IsSuccess = false;
-                    _response.Message = "Invalid course or unauthorized access";
+                    _response.Message = "There is no course to add the module.Please add the course first";
                     return BadRequest(_response);
                 }
+                if (course.TrainerId != trainerId)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Unauthorized";
+                    return Unauthorized(_response);
+                }
                 var module = _mapper.Map<Module>(moduleDto);
-                module.Course = course;
+                module.Course = null;
+                module.TrainerId= trainerId;
                 module.CourseId = courseId;
                 var filePath = await UploadModuleAsync(moduleDto.File);
                 module.Description = moduleDto.Description;
@@ -124,9 +131,9 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
             }
           
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
-        public async Task<IActionResult> UpdateModule(int courseId, [FromBody] ModuleDto moduleDto)
+        public async Task<IActionResult> UpdateModule(int moduleId, [FromForm] ModuleDto moduleDto)
         {
             try
             {
@@ -137,15 +144,27 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                     _response.Message = "Trainer Id Not found";
                     return Unauthorized(_response);
                 }
-                var course = await _courseRepository.GetById(courseId);
-                if (course == null || course.TrainerId != trainerId)
+                var existingModule = await _moduleRepository.GetModuleById(moduleId);
+                if (existingModule == null)
                 {
                     _response.IsSuccess = false;
-                    _response.Message = "Not authorized";
+                    _response.Message = "No Module to update";
                     return BadRequest(_response);
                 }
+                if(existingModule.TrainerId!=trainerId)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Unauthorized";
+                    return Unauthorized(_response);
+                }
                 var module = _mapper.Map<Module>(moduleDto);
-                var updated = await _moduleRepository.UpdateModule(courseId,module);
+                var filePath = await UploadModuleAsync(moduleDto.File);
+                if (filePath != null)
+                {
+                    module.FilePath = filePath;
+                }
+                module.CourseId=existingModule.CourseId;
+                var updated = await _moduleRepository.UpdateModule(moduleId,module);
                 if (updated == null) return NotFound("Module not found.");
 
                 var response = _mapper.Map<ModuleResponseDto>(updated);
@@ -161,9 +180,9 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                 return StatusCode(500,_response);
             }
         }
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
-        public async Task<IActionResult> DeleteModule(int courseId)
+        public async Task<IActionResult> DeleteModule(int moduleId)
         {
             try
             {
@@ -174,7 +193,7 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                     _response.Message = "Trainer Id Not found";
                     return Unauthorized(_response);
                 }
-                var module = await _moduleRepository.GetModuleById(courseId);
+                var module = await _moduleRepository.GetModuleById(moduleId);
                 if (module == null)
                 {
                     _response.IsSuccess = false;
@@ -182,15 +201,14 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                     return NotFound(_response);
                 }
 
-                var course = await _courseRepository.GetById(courseId);
-                if (course == null || course.TrainerId != trainerId)
+                if (module.TrainerId != trainerId)
                 {
                     _response.IsSuccess=false;
                     _response.Message = "UnAuthorized";
                     return BadRequest(_response);
                 }
 
-                await _moduleRepository.Delete(courseId);
+                await _moduleRepository.Delete(moduleId);
                 _response.IsSuccess=true;
                 _response.Message = "Successfully";
                 return Ok(_response);

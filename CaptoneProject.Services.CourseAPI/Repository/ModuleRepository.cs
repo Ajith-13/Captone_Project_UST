@@ -29,7 +29,6 @@ namespace CaptoneProject.Services.CourseAPI.Repository
         public async Task<bool> Delete(int id)
         {
             var module = await _context.Modules
-                .Include(m => m.Course)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (module == null)
@@ -43,7 +42,6 @@ namespace CaptoneProject.Services.CourseAPI.Repository
         public async Task<Module> GetModuleById(int id)
         {
             var module = await _context.Modules
-                .Include(m => m.Course)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (module == null)
@@ -70,7 +68,10 @@ namespace CaptoneProject.Services.CourseAPI.Repository
             if (existingModule is null)
                 return null;
             existingModule.Title = module.Title;
-            existingModule.FilePath = module.FilePath;
+            if(module.FilePath!=null)
+            {
+                existingModule.FilePath = module.FilePath;
+            }
             existingModule.Description = module.Description;
             existingModule.AssignmentId = module.AssignmentId;
             existingModule.QuizId = module.QuizId;
