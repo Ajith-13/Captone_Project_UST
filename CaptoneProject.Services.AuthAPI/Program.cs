@@ -29,7 +29,12 @@ namespace CaptoneProject.Services.AuthAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("AuthDB"));
             });
             builder.Services.AddScoped<JwtService>();
-            builder.Services.AddIdentity<ApplicationUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            builder.Services.AddIdentity<ApplicationUser,IdentityRole>(
+                options =>
+                {
+                    options.User.RequireUniqueEmail = true;
+                    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(
                 options =>
@@ -44,9 +49,37 @@ namespace CaptoneProject.Services.AuthAPI
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                     };
                 });
+            var serviceProvider = builder.Services.BuildServiceProvider();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                context.Database.EnsureCreated();
+            }
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularDev", policy =>
+                {
+                    policy.WithOrigins("https://localhost:4200")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials();
+                });
+            });
+
 
             var app = builder.Build();
-            
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var serviceProvide = scope.ServiceProvider;
+
+                var roleManager = serviceProvide.GetRequiredService<RoleManager<IdentityRole>>();
+                await RoleSeeder.SeedRolesAsync(roleManager);
+                var userManager = serviceProvide.GetRequiredService<UserManager<ApplicationUser>>();
+                await AdminSeeder.SeedAdminAsync(userManager);
+            }
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -57,21 +90,11 @@ namespace CaptoneProject.Services.AuthAPI
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+            app.UseCors("AllowAngularDev");
+
             app.UseAuthorization();
 
             app.MapControllers();
-            var serviceProvider = builder.Services.BuildServiceProvider();
-            using (var scope = serviceProvider.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                context.Database.EnsureCreated();
-            }
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                await RoleSeeder.SeedRolesAsync(roleManager);
-            }
 
             app.Run();
         }

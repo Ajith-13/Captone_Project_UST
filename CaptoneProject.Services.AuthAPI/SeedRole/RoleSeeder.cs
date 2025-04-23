@@ -15,6 +15,10 @@ namespace CaptoneProject.Services.AuthAPI.SeedRole
             {
                 await roleManager.CreateAsync(new IdentityRole("LEARNER"));
             }
+            if (!await roleManager.RoleExistsAsync("ADMIN"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("ADMIN"));
+            }
         }
     }
 }
