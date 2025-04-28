@@ -50,12 +50,18 @@ namespace CaptoneProject.Services.AuthAPI
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                     };
                 });
+            var serviceProvider = builder.Services.BuildServiceProvider();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                context.Database.EnsureCreated();
+            }
 
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngularDev", policy =>
                 {
-                    policy.WithOrigins("http://localhost:4200")
+                    policy.WithOrigins("https://localhost:4200")
                           .AllowAnyMethod()
                           .AllowAnyHeader()
                           .AllowCredentials();
@@ -114,22 +120,6 @@ namespace CaptoneProject.Services.AuthAPI
             app.UseAuthorization();
 
             app.MapControllers();
-            var serviceProvider = builder.Services.BuildServiceProvider();
-            using (var scope = serviceProvider.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                context.Database.EnsureCreated();
-            }
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var serviceProvide = scope.ServiceProvider;
-
-                var roleManager = serviceProvide.GetRequiredService<RoleManager<IdentityRole>>();
-                await RoleSeeder.SeedRolesAsync(roleManager);
-                var userManager = serviceProvide.GetRequiredService<UserManager<ApplicationUser>>();
-                await AdminSeeder.SeedAdminAsync(userManager);
-            }
 
             app.Run();
         }

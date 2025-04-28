@@ -50,15 +50,25 @@ namespace CaptoneProject.Services.NotesAPI
        };
    });
             builder.Services.AddAuthorization();
+            builder.Services.AddSwaggerGen();
 
 
             var app = builder.Build();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Notes API V1");
+            });
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+            }
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseHttpsRedirection();

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CaptoneProject.Services.AuthAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class adadmin : Migration
+    public partial class ini : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,9 +30,9 @@ namespace CaptoneProject.Services.AuthAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ApprovalStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CertificatePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ResumePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApprovalStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

@@ -31,7 +31,6 @@ namespace CaptoneProject.Services.AuthAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ApprovalStatus")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CertificatePath")

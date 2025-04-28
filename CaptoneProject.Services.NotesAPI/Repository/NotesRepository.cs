@@ -15,21 +15,16 @@ namespace CaptoneProject.Services.NotesAPI.Repository
 
         public async Task<IEnumerable<Notes>> GetAllNotes()
         {
-            //while;dbfdnc
             return await _context.Notes.ToListAsync();
         }
+
         public async Task<IEnumerable<Notes>> GetNotesByUser(string userId)
         {
             return await _context.Notes
                     .Where(n => n.UserId == userId)
                     .OrderByDescending(n => n.DateModified)
-            .ToListAsync();
+                    .ToListAsync();
         }
-
-        
-
-
-        
 
         public async Task<Notes> CreateNote(Notes notes, string userid)
         {
@@ -64,6 +59,20 @@ namespace CaptoneProject.Services.NotesAPI.Repository
         public async Task<bool> DeleteNote(int Id)
         {
             var notes = await _context.Notes.FindAsync(Id);
+            if (notes == null)
+            {
+                return false;
+            }
+
+            _context.Notes.Remove(notes);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        // Fix for CS0535: Implementing the missing interface member
+        public async Task<bool> DeleteNote(int Id, string userId)
+        {
+            var notes = await _context.Notes.FirstOrDefaultAsync(n => n.Id == Id && n.UserId == userId);
             if (notes == null)
             {
                 return false;
