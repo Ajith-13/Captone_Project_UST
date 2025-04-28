@@ -40,6 +40,7 @@ namespace CaptoneProject.Services.AssignmentAPI.Controllers
                 }
                 var assignmentQuestion = _mapper.Map<AssignmentQuestion>(assignmentDto);
                 assignmentQuestion.TrainerId = trainerId;
+
                 await _assignmentQuestionRepository.AddAssignmentQuestion(assignmentQuestion);
                 var response = _mapper.Map<AssignmentQuestionResponseDto>(assignmentQuestion);
                 return CreatedAtAction(nameof(GetAssignmentById), new { id = assignmentQuestion.Id }, response);
@@ -65,9 +66,32 @@ namespace CaptoneProject.Services.AssignmentAPI.Controllers
                 return StatusCode(500, $"Error retrieving Assignment By id: {ex.Message}");
             }
         }
+        [HttpGet("module/{moduleId}")]
+        public async Task<IActionResult> GetAssignmentsByModuleId(int moduleId)
+        {
+            try
+            {
+                // Fetch the assignment questions by the moduleId
+                var assignmentQuestions = await _assignmentQuestionRepository.GetAssignmentsByModuleId(moduleId);
+
+                if (assignmentQuestions == null || !assignmentQuestions.Any())
+                {
+                    return NotFound($"No assignments found for module ID {moduleId}.");
+                }
+
+                // Map the assignment questions to a response DTO (optional)
+                var response = _mapper.Map<List<AssignmentQuestionResponseDto>>(assignmentQuestions);
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error retrieving assignments for module {moduleId}: {ex.Message}");
+            }
+        }
+
         [HttpPut("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
-
         public async Task<IActionResult> UpdateAssignment(int questionId, [FromBody] AssignmentQuestionDto assignmentDto)
         {
             try

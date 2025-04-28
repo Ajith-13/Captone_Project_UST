@@ -1,10 +1,15 @@
 ﻿using AutoMapper;
+using Azure;
+using CaptoneProject.Services.AssignmentAPI.Data.Dto.Assignment;
 using CaptoneProject.Services.AssignmentAPI.Data.Dto.AssignmentSubmission;
 using CaptoneProject.Services.AssignmentAPI.Data.Dto.Mark;
 using CaptoneProject.Services.AssignmentAPI.Models;
 using CaptoneProject.Services.AssignmentAPI.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CaptoneProject.Services.AssignmentAPI.Controllers
 {
@@ -23,13 +28,20 @@ namespace CaptoneProject.Services.AssignmentAPI.Controllers
             _environment = environment;
         }
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "LEARNER")]
         public async Task<IActionResult> SubmitAssignment([FromForm] AssignmentDto assignmentDto)
         {
             try
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized("Unauthorized");
+                }
                 var assignment = _mapper.Map<Assignment>(assignmentDto);
                 string? assignmentPath = await UploadAssignmentAsync(assignmentDto.FilePath);
                 assignment.FilePath = assignmentPath;
+                assignment.LearnerId= userId;
                 await _assignmentRepository.AddAssignment(assignment);
                 var response = _mapper.Map<AssignmentResponseDto>(assignment);
                 return Ok(response);
@@ -53,6 +65,106 @@ namespace CaptoneProject.Services.AssignmentAPI.Controllers
                 return StatusCode(500,"Cannot return assignment"+ex.Message);
             }
         }
+        [HttpGet("TrainerAssignments")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
+        public async Task<IActionResult> GetAssignmentsByTrainerId()
+        {
+            try
+            {
+                var trainerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(trainerId))
+                {
+                    return Unauthorized("Unauthorized");
+                }
+
+                // Fetch the assignments that belong to the trainer
+                var assignments = await _assignmentRepository.GetAssignmentsByTrainerIdAsync(trainerId);
+
+                if (assignments == null || !assignments.Any())
+                {
+                    return NotFound("No assignments found for this trainer.");
+                }
+
+                // Map to the response DTO
+                var assignmentResponse = assignments.Select(aq => new
+                {
+                    AssignmentQuestion = new
+                    {
+                        aq.Id,
+                        aq.Title,
+                        aq.Description,
+                        aq.UploadDate,
+                        aq.DueDate,
+                        aq.TotalMarks,
+                        // Include related assignments (SubmittedAt, MarksScored, LearnerId)
+                        Assignments = aq.Assignments.Select(assign => new
+                        {
+                            assign.Id,
+                            assign.LearnerId,
+                            assign.FilePath,
+                            assign.SubmittedAt,
+                            assign.MarksScored
+                        }).ToList() // Convert Assignments to a List
+                    }
+                }).ToList(); // Convert final result to a list
+
+                return Ok(assignmentResponse);  // Return the mapped response
+            }
+            catch (Exception ex)
+            {
+                // Log the error and return 500 Internal Server Error
+                //_logger.LogError(ex, "An error occurred while fetching assignments.");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpGet("Submitted")] // Adjust the endpoint path as necessary
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "LEARNER")]
+        public async Task<IActionResult> GetSubmittedAssignments()
+        {
+            // Extract user ID from the JWT token
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Assuming "NameIdentifier" contains the learner's ID
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("Unauthorized access.");
+            }
+
+            try
+            {
+                // Fetch the assignments submitted by the learner using the userId
+                var assignments = await _assignmentRepository.GetAssignmentsByLearnerIdAsync(userId);
+
+                if (assignments == null || !assignments.Any())
+                {
+                    return NotFound("No assignments found for this learner.");
+                }
+
+                // Create a list of tasks to fetch assignment questions concurrently
+                var assignmentDetails = new List<object>();
+
+                foreach (var a in assignments)
+                {
+                    var assignmentQuestion = await _assignmentRepository.GetAssignmentQuestionByIdAsync(a.AssignmentQuestionId);
+                    assignmentDetails.Add(new
+                    {
+                        a.Id,
+                        a.SubmittedAt,
+                        a.MarksScored,
+                        a.AssignmentQuestionId,
+                        AssignmentQuestion = assignmentQuestion != null
+                            ? new { assignmentQuestion.Title, assignmentQuestion.Description, assignmentQuestion.DueDate ,assignmentQuestion.TotalMarks}
+                            : null
+                    });
+                }
+
+                return Ok(assignmentDetails);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception for debugging (if using logging framework)
+                return StatusCode(500, "An error occurred while fetching assignments: " + ex.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByAssignmentId(int id)
         {

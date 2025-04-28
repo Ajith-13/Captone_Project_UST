@@ -108,6 +108,46 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                 return StatusCode(500,_response);
             }
         }
+        [HttpGet("trainer")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
+        public async Task<IActionResult> GetCoursesByTrainer()
+        {
+            try
+            {
+                var trainerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(trainerId))
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Trainer ID not found in token.";
+                    return Unauthorized(_response);
+                }
+
+                var courses = await _courseRepository.GetCoursesByTrainer(trainerId);
+
+                if (courses == null || !courses.Any())
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "No courses found for this trainer.";
+                    return NotFound(_response);
+                }
+
+                var response = _mapper.Map<List<CourseResponseDto>>(courses);
+
+                _response.IsSuccess = true;
+                _response.Message = "Success";
+                _response.Data = response;
+
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = "Exception: " + ex.Message;
+                return StatusCode(500, _response);
+            }
+        }
+
         [HttpPut("{courseId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "TRAINER")]
         public async Task<IActionResult> Update(int courseId, [FromForm] CourseDto courseDto)

@@ -6,6 +6,7 @@ using CaptoneProject.Services.AuthAPI.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -60,8 +61,44 @@ namespace CaptoneProject.Services.AuthAPI
                           .AllowCredentials();
                 });
             });
+           
+
             var app = builder.Build();
-            
+            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
+                RequestPath = "/Files",
+                OnPrepareResponse = ctx =>
+                {
+                    var fileExtension = Path.GetExtension(ctx.File.PhysicalPath).ToLower();
+                    if (fileExtension == ".pdf")
+                    {
+                        ctx.Context.Response.ContentType = "application/pdf";
+                    }
+                    else if (fileExtension == ".jpg" || fileExtension == ".jpeg")
+                    {
+                        ctx.Context.Response.ContentType = "image/jpeg";
+                    }
+                    else if (fileExtension == ".png")
+                    {
+                        ctx.Context.Response.ContentType = "image/png";
+                    }
+                    else if (fileExtension == ".docx" || fileExtension == ".doc")
+                    {
+                        ctx.Context.Response.ContentType = "application/msword";
+                    }
+                    else if (fileExtension == ".xlsx")
+                    {
+                        ctx.Context.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    }
+                    // You can add more conditions for different file types as needed.
+                }
+            });
+
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

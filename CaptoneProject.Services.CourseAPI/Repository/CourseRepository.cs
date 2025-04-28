@@ -40,7 +40,19 @@ namespace CaptoneProject.Services.CourseAPI.Repository
         {
             return await _context.Courses.Include(c => c.Modules).FirstOrDefaultAsync(c => c.Id == id);
         }
-
+        public async Task<IEnumerable<Course>> GetCoursesByTrainer(string trainerId)
+        {
+            try
+            {
+                return await _context.Courses
+                    .Where(c => c.TrainerId == trainerId)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error fetching courses by trainer: " + ex.Message);
+            }
+        }
         public async Task<Course?> Update(int courseId, Course course, string trainerId)
         {
             var existingCourse = await _context.Courses.FirstOrDefaultAsync(c => c.Id == courseId && c.TrainerId == trainerId);

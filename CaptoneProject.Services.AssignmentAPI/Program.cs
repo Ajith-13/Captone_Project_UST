@@ -3,6 +3,7 @@ using CaptoneProject.Services.AssignmentAPI.Data;
 using CaptoneProject.Services.AssignmentAPI.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -47,6 +48,16 @@ namespace CaptoneProject.Services.AssignmentAPI
         };
     });
             builder.Services.AddAuthorization();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularDev", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials();
+                });
+            });
 
             var app = builder.Build();
 
@@ -58,6 +69,14 @@ namespace CaptoneProject.Services.AssignmentAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("AllowAngularDev");
+            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.WebRootPath, "thumbnails")),
+                RequestPath = "/assignment"  // This is the path the user will use to access files
+            });
 
             app.UseAuthorization();
 

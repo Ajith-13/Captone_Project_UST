@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Security.Claims;
 
 namespace CaptoneProject.Services.AuthAPI.Controllers
@@ -25,7 +26,7 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
         [HttpPost("register/trainer")]
         public async Task<IActionResult> RegisterTrainer([FromForm] TrainerRegistrationDto trainerRegistrationDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(new { ModelState });
 
             var user = new ApplicationUser
             {
@@ -35,7 +36,7 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, trainerRegistrationDto.Password);
-            if (!result.Succeeded) return BadRequest(result.Errors);
+            if (!result.Succeeded) return BadRequest(new { result.Errors });
 
             if (trainerRegistrationDto.Certificate != null)
             {
@@ -69,10 +70,10 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             await _userManager.AddToRoleAsync(user, "Trainer");
             await _userManager.UpdateAsync(user);
 
-            return Ok("Trainer registered successfully. Pending admin approval.");
+            return Ok(new { message = "Trainer Registered Successfully. Waiting for admin approval" });
         }
         [HttpPost("register/learner")]
-        public async Task<IActionResult> SignUp([FromBody] RegisterDto model)
+        public async Task<IActionResult> SignUp([FromForm] RegisterDto model)
         {
             var existingUser = await _userManager.FindByEmailAsync(model.Email);
             if (existingUser != null)
@@ -102,22 +103,102 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             await _userManager.AddToRoleAsync(user, "Learner");
             return Ok("User created successfully.");
         }
+        [HttpGet("all-trainers")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "ADMIN")]
+        public async Task<IActionResult> GetAllTrainers()
+        {
+            // Fetch all users who have the "TRAINER" role, regardless of their approval status
+            var allTrainers = await _userManager.Users
+                                                .ToListAsync();
+
+            var trainersWithRoles = new List<ApplicationUser>();
+
+            foreach (var user in allTrainers)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("TRAINER"))
+                {
+                    trainersWithRoles.Add(user);
+                }
+            }
+
+            // Return only the relevant information for each trainer
+            return Ok(trainersWithRoles.Select(u => new
+            {
+                u.Id,
+                u.UserName,
+                u.Email,
+                u.ApprovalStatus,
+                u.CertificatePath,
+                u.ResumePath
+            }));
+        }
+        [HttpGet("trainer/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "ADMIN")]
+        public async Task<IActionResult> GetTrainerById(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound(new { message = "Trainer not found" });
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+            if (!roles.Contains("TRAINER"))
+            {
+                return Forbid(); // or return BadRequest("User is not a trainer.");
+            }
+            var baseUrl = $"{Request.Scheme}://{Request.Host}";
+            var cleanedCertificatePath = user.CertificatePath?.Replace("\\", "/"); // Normalize slashes
+
+            var fullCertificateUrl = !string.IsNullOrEmpty(cleanedCertificatePath)
+                ? $"{baseUrl}/files/Certificates/{Path.GetFileName(cleanedCertificatePath)}"
+                : null;
+
+            return Ok(new
+            {
+                user.Id,
+                user.UserName,
+                user.Email,
+                user.ApprovalStatus,
+                CertificatePath = fullCertificateUrl,
+                ResumePath = !string.IsNullOrEmpty(user.ResumePath)
+        ? $"{baseUrl}/files/Resumes/{Path.GetFileName(user.ResumePath.Replace("\\", "/"))}"
+        : null
+            });
+        }
+
         [HttpPost("approve-trainer")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "ADMIN")]
         public async Task<IActionResult> ApproveTrainer([FromBody] TrainerApprovalDto model)
         {
             var user = await _userManager.FindByIdAsync(model.TrainerId);
-            if (user == null) return NotFound("Trainer not found");
-            if(user.ApprovalStatus != "Pending")
+            if (user == null)
             {
-                return NotFound("Trainer already reviewed");
+                return NotFound(new { message = "Trainer not found" }); 
             }
-            user.ApprovalStatus = model.IsApproved ? "Approved" : "Rejected";
+
+            if (user.ApprovalStatus == "Approved" && !model.IsApproved)
+            {
+                user.ApprovalStatus = "Pending";
+            }
+            else if (user.ApprovalStatus == "Pending" && model.IsApproved)
+            {
+                user.ApprovalStatus = "Approved";
+            }
+            else
+            {
+                return BadRequest(new { message = "No change in approval status required" });
+            }
+
             await _userManager.UpdateAsync(user);
 
-            return Ok($"Trainer {user.UserName} has been {user.ApprovalStatus.ToLower()}.");
+            return Ok(new { message = $"Trainer {user.UserName} approval status has been updated to {user.ApprovalStatus.ToLower()}." });
         }
-        
+
+
+
         [HttpGet("pending-trainers")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "ADMIN")]
         public async Task<IActionResult> GetPendingTrainers()
@@ -156,13 +237,13 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                return Unauthorized("Invalid credentials.");
+                return Unauthorized(new { message = "No User Found. Register First" });
             }
 
             var result = await _userManager.CheckPasswordAsync(user, model.Password);
             if (!result)
             {
-                return Unauthorized("Invalid credentials.");
+                return Unauthorized(new { message = "Wrong Password" });
             }
             var roles = await _userManager.GetRolesAsync(user);
 
@@ -170,7 +251,8 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
             {
                 if (user.ApprovalStatus != "Approved")
                 {
-                    return Unauthorized("Trainer approval pending.");
+                    return Unauthorized(new { message = "Trainer approval pending." });
+
                 }
             }
            
@@ -178,6 +260,36 @@ namespace CaptoneProject.Services.AuthAPI.Controllers
 
             return Ok(new {token});
         }
+        [AllowAnonymous]
+        [HttpPost("admin-login")]
+        public async Task<IActionResult> AdminLogin([FromBody] LoginDto model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return Unauthorized("Email Id Not Found");
+            }
+
+            var result = await _userManager.CheckPasswordAsync(user, model.Password);
+            if (!result)
+            {
+                return Unauthorized("Invalid credentials.");
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+          
+            if (!roles.Any(role => role.Equals("Admin", StringComparison.OrdinalIgnoreCase)))
+            {
+                return Unauthorized("You must be an admin to access this resource.");
+            }
+
+
+            var token = _jwtService.GenerateJwtToken(user);
+
+            return Ok(new { token });
+        }
+
         [HttpGet("{trainerId}")]
         [Authorize(Roles ="TRAINER")]
         public async Task<IActionResult> Get(string trainerId)

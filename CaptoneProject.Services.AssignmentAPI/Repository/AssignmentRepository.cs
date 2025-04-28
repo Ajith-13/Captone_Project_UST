@@ -36,16 +36,40 @@ namespace CaptoneProject.Services.AssignmentAPI.Repository
         {
             return await _context.Assignments.ToListAsync();
         }
+        public async Task<IEnumerable<AssignmentQuestion>> GetAssignmentsByTrainerIdAsync(string trainerId)
+        {
+            // Fetch AssignmentQuestions where the trainerId matches
+            var assignments = await _context.AssignmentQuestions
+                .Where(a => a.TrainerId == trainerId)  // Filter AssignmentQuestions by trainerId
+                .Include(a => a.Assignments)  // Include the related Assignments (one-to-many)
+                .ToListAsync();  // Execute the query asynchronously
 
+            return assignments;
+        }
         public async Task<Assignment> GetAssignmentById(int id)
         {
             return await _context.Assignments.FindAsync(id);
         }
         public async Task<Assignment> UpdateMark(Assignment assignment)
         {
+            // Explicitly mark the entity as modified
             _context.Entry(assignment).State = EntityState.Modified;
+
             await _context.SaveChangesAsync();
             return assignment;
         }
+        public async Task<IEnumerable<Assignment>> GetAssignmentsByLearnerIdAsync(string learnerId)
+        {
+            // Fetch the assignments where the learnerId matches the provided learner ID
+            return await _context.Assignments
+                .Where(a => a.LearnerId == learnerId && a.SubmittedAt != null)  // Only fetch submitted assignments
+                .ToListAsync();
+        }
+        public async Task<AssignmentQuestion> GetAssignmentQuestionByIdAsync(int assignmentQuestionId)
+        {
+            return await _context.AssignmentQuestions
+                                 .FirstOrDefaultAsync(q => q.Id == assignmentQuestionId);
+        }
+
     }
 }

@@ -9,5 +9,6 @@ namespace CaptoneProject.Services.AssignmentAPI.Repository
         Task<AssignmentQuestion> AddAssignmentQuestion(AssignmentQuestion assignment);
         Task<AssignmentQuestion> UpdateAssignmentQuestion(int assignmentId,AssignmentQuestion assignment,string trainerId);
         Task<bool> DeleteAssignmentQuestion(string trainerId,int assignmentId);
+        Task<IEnumerable<AssignmentQuestion>> GetAssignmentsByModuleId(int moduleId);
     }
 }

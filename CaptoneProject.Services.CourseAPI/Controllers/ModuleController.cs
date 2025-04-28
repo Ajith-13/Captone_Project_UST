@@ -228,6 +228,7 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
             if (string.IsNullOrEmpty(_environment.WebRootPath))
                 throw new InvalidOperationException("WebRootPath is not configured.");
 
+            // Save the file in the 'module' folder inside 'wwwroot'
             var uploadsFolder = Path.Combine(_environment.WebRootPath, "module");
             Directory.CreateDirectory(uploadsFolder);
 
@@ -239,7 +240,9 @@ namespace CaptoneProject.Services.CourseAPI.Controllers
                 await upload.CopyToAsync(fileStream);
             }
 
-            return $"/upload/{uniqueFileName}";
+            // Return the correct URL for frontend (from /module/)
+            return $"/module/{uniqueFileName}";
         }
+
     }
 }

@@ -72,7 +72,7 @@ namespace CaptoneProject.Services.CourseAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseAuthorization();
             app.UseCors("AllowAngularDev");
 

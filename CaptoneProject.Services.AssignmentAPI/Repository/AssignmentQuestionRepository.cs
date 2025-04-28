@@ -48,6 +48,13 @@ namespace CaptoneProject.Services.AssignmentAPI.Repository
         {
             return await _context.AssignmentQuestions.FirstOrDefaultAsync(a => a.Id == id);
         }
+        public async Task<IEnumerable<AssignmentQuestion>> GetAssignmentsByModuleId(int moduleId)
+        {
+            // Query the database to get all assignment questions where the ModuleId matches
+            return await _context.AssignmentQuestions
+                                 .Where(a => a.ModuleId == moduleId) // Filter by ModuleId
+                                 .ToListAsync();  // Convert to list asynchronously
+        }
 
         public async Task<AssignmentQuestion> UpdateAssignmentQuestion(int assignmentId, AssignmentQuestion assignment,string trainerId)
         {

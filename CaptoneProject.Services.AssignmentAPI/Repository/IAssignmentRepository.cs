@@ -8,6 +8,8 @@ namespace CaptoneProject.Services.AssignmentAPI.Repository
         Task<Assignment> GetAssignmentById(int id);
         Task<Assignment>AddAssignment(Assignment assignmentSubmission);
         Task<Assignment> UpdateMark(Assignment assignment);
-
+        Task<IEnumerable<AssignmentQuestion>> GetAssignmentsByTrainerIdAsync(string trainerId);
+        Task<IEnumerable<Assignment>> GetAssignmentsByLearnerIdAsync(string learnerId);
+        Task<AssignmentQuestion> GetAssignmentQuestionByIdAsync(int assignmentQuestionId);
     }
 }
