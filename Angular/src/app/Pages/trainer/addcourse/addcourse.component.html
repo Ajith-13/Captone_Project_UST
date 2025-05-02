@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<div class="alert alert-danger alert-dismissible fade show" id="alertMessage" style="display:none;">
+    <strong id="alertTitle"></strong> <span id="alertText"></span>
+  </div>
+  <div class="alert alert-success alert-dismissible fade show" id="alertSuccessMessage" style="display:none;">
+    <strong id="alertSuccessTitle"></strong> <span id="alertSuccessText"></span>
+  </div>
+<div class="form-container">
+  <h2>Add New Course</h2>
+
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+    <label>Title *</label>
+    <input type="text" formControlName="title" placeholder="Course Title" required>
+
+    <label>Description</label>
+    <textarea formControlName="description" placeholder="Course Description"></textarea>
+
+    <label>Thumbnail Image *</label>
+    <input type="file" (change)="onFileChange($event)" accept="image/*" required>
+
+    <button type="submit" [disabled]="courseForm.invalid || !thumbnailImageFile">Add Course</button>
+  </form>
+
+  <div *ngIf="message" class="alert">
+    {{ message }}
+  </div>
+</div>

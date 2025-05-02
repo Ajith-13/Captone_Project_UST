@@ -1,0 +1,30 @@
+<div class="trainer-home-container">
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
+      <img src="assets/logo.png" alt="App Logo" class="logo" />
+      <input type="text" class="search-bar" placeholder="Search courses..." />
+      <button class="profile-btn">
+        <img src="assets/trainer-icon.png" alt="Trainer Profile" />
+      </button>
+    </div>
+  
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="home-btn">Add Courses</button>
+      <button class="home-btn" (click)="toggleCourses()">View Courses</button>
+    </div>
+  
+    <!-- Course List -->
+    @if (showCourses) {
+    <div class="course-list" >
+      @for (course of courses; track $index) {
+
+      <div class="course-item">
+        {{ course }}
+      </div>
+    }
+    </div>
+  }
+  
+  </div>
+  

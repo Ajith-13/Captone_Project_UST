@@ -1,0 +1,24 @@
+<app-navbar></app-navbar>
+<div class="alert alert-danger alert-dismissible fade show" id="alertMessage" style="display:none;">
+  <strong id="alertTitle"></strong> <span id="alertText"></span>
+</div>
+<div class="alert alert-success alert-dismissible fade show" id="alertSuccessMessage" style="display:none;">
+  <strong id="alertSuccessTitle"></strong> <span id="alertSuccessText"></span>
+</div>
+<div class="form-container">
+    <h2>Trainer Registration</h2>
+    <form>
+      <input type="text" [(ngModel)]="formData.userName" name="userName" placeholder="Username" required>
+      <input type="email" [(ngModel)]="formData.email" name="email" placeholder="Email ID" required>
+      <input type="password" [(ngModel)]="formData.password" name="password" placeholder="Set Password" required>
+  
+      <label class="upload-label">Upload Certificate:</label>
+      <input type="file" (change)="onFileChange($event, 'certificate')"  accept=".pdf,.jpg,.png,.jpeg" required>
+  
+      <label class="upload-label">Upload Resume:</label>
+      <input type="file" (change)="onFileChange($event, 'resume')" accept=".pdf,.doc,.docx" required>
+  
+      <button type="submit" (click)="onTrainerRegistration()">Submit</button>
+    </form>
+  </div>
+  

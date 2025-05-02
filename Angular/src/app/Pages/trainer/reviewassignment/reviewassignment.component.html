@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+<div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+<div *ngIf="assignments && assignments.length > 0" class="assignments-section">
+  <div class="assignment-cards">
+    <div *ngFor="let assignment of assignments" class="assignment-card">
+
+      <div class="assignment-header">
+        <h4>{{ assignment?.assignmentQuestion?.title }}</h4>
+        <p><strong>Total Marks:</strong> {{ assignment?.assignmentQuestion?.totalMarks }}</p>
+      </div>
+
+      <div class="assignment-details">
+        <p><strong>Description:</strong> {{ assignment?.assignmentQuestion?.description }}</p>
+        <p><strong>Due Date:</strong> {{ assignment?.assignmentQuestion?.dueDate | date:'yyyy-MM-dd' }}</p>
+      </div>
+
+      <div class="submitted-assignments" *ngIf="assignment?.assignmentQuestion?.assignments?.length > 0">
+        <h5>Submitted Assignments:</h5>
+        <div *ngFor="let submitted of assignment?.assignmentQuestion?.assignments" class="submitted-assignment">
+          <p><strong>Learner ID:</strong> {{ submitted?.learnerId }}</p>
+          <div>
+            <strong>View Submission:</strong>
+            <embed
+              *ngIf="submitted?.filePath"
+              [src]="getSafeUrl('http://localhost:5171' + submitted?.filePath)"
+              type="application/pdf"
+              width="100%"
+              height="500px"
+            />
+            <p *ngIf="!submitted?.filePath">No file submitted.</p>
+          </div>
+          <p><strong>Submitted At:</strong> {{ submitted?.submittedAt | date:'yyyy-MM-dd HH:mm' }}</p>
+          <div class="mark-input">
+           
+            <label for="marks-{{ submitted?.id }}">Marks Scored:</label>
+            <input
+              type="number"
+              id="marks-{{ submitted?.id }}"
+              [(ngModel)]="submitted.marksScored"
+              [min]="0"
+              [max]="assignment?.assignmentQuestion?.totalMarks"
+              placeholder="Enter marks"
+            />
+            <button class="update-button small-button" (click)="updateMarks(submitted?.id, submitted?.marksScored)">
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="!(assignment?.assignmentQuestion?.assignments?.length > 0)">
+        <p>No submissions found for this assignment.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="error">
+  <p>{{ error }}</p>
+</div>
+
+<div *ngIf="!assignments && !error">
+  <p>Loading assignments...</p>
+</div>

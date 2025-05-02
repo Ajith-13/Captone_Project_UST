@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+<!-- Success Alert -->
+<div *ngIf="showSuccessAlert" class="alert alert-success alert-dismissible fade show">
+    <strong>Success!</strong> {{ successMessage }}
+  </div>
+  
+  <!-- Error Alert -->
+  <div *ngIf="showErrorAlert" class="alert alert-danger alert-dismissible fade show">
+    <strong>Error!</strong> {{ errorMessage }}
+  </div>
+  
+<div class="form-container">
+    <h2>Add New Module</h2>
+<form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="course">Select Course</label>
+    <select id="course" [(ngModel)]="selectedCourseId" name="courseId" class="form-control" required>
+      <option *ngFor="let course of courses" [value]="course.id">{{ course.title }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="title">Module Title</label>
+    <input id="title" [(ngModel)]="title" name="title" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <label for="description">Module Description</label>
+    <textarea id="description" [(ngModel)]="description" name="description" class="form-control"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="file">Upload Video</label>
+    <input type="file" id="file" (change)="onFileChange($event)" class="form-control" accept="video/*" required />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Add Module</button>
+</form>
+
+<div *ngIf="uploadProgress">
+  <div class="progress">
+    <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+  </div>
+  <p>{{ uploadProgress }}% uploaded</p>
+</div>
+</div>

@@ -1,0 +1,159 @@
+/* Style the module details container */
+.module-details-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Title Styling */
+  .module-details-container h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  
+  /* Description Styling */
+  .module-details-container p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  /* Video Container */
+  .module-details-container video {
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    max-width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Loading Text Styling */
+  .module-details-container .loading-text {
+    font-size: 1.2rem;
+    color: #888;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin-top: 30px;
+  }
+  
+  /* Loader Animation */
+  .module-details-container .loading-text:before {
+    content: "🔄";
+    font-size: 2rem;
+    margin-right: 10px;
+    animation: spin 1.5s infinite linear;
+  }
+  
+  /* Spinner Animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Additional Styling for Navbar */
+  
+  /* Assignments Section */
+.assignments-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .assignments-section h3 {
+    font-size: 1.6rem;
+    color: #3f51b5;
+    margin-bottom: 1.5rem;
+  }
+  
+  .assignments-section ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .assignments-section li {
+    background-color: #fff;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .assignments-section li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .assignments-section li strong {
+    font-size: 1.3rem;
+    color: #333;
+  }
+  
+  .assignments-section li p {
+    color: #555;
+    line-height: 1.5;
+    margin: 0.5rem 0;
+  }
+  
+  .assignments-section li p strong {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .assignments-section li p {
+    font-size: 0.95rem;
+  }
+  
+  .assignments-section li p:first-of-type {
+    margin-top: 0;
+  }
+  
+  /* For Date and Marks */
+  .assignments-section li .due-date,
+  .assignments-section li .total-marks {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 0.5rem;
+  }
+  
+  /* Styling for the assignment item */
+  .assignments-section li .due-date span,
+  .assignments-section li .total-marks span {
+    color: #3f51b5;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .assignments-section {
+      padding: 1rem;
+    }
+  
+    .assignments-section li {
+      padding: 1rem;
+      margin-bottom: 1.2rem;
+    }
+  
+    .assignments-section h3 {
+      font-size: 1.4rem;
+    }
+  
+    .assignments-section li strong {
+      font-size: 1.1rem;
+    }
+  
+    .assignments-section li p {
+      font-size: 0.9rem;
+    }
+  }
+  

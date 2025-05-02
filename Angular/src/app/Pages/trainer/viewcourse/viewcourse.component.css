@@ -1,0 +1,81 @@
+/* Add some margin to the left side for better spacing */
+h2{
+    margin-left: 20px;
+}
+.courses-list{
+  margin: 50px;
+}
+.course-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-left: 20px; /* Add margin on the left */
+    margin-right: 20px; /* Optional: Add margin on the right for symmetry */
+  }
+  
+  /* Style for each course card */
+  .course-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 10px; /* Padding to give some inner spacing for each card */
+  }
+  
+  /* Style for the course thumbnail */
+  .course-thumbnail img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px; /* Optional: Rounded corners for the image */
+  }
+  
+  /* Info section inside the course card */
+  .course-info {
+    padding: 10px;
+  }
+  
+  /* Title styling */
+  .course-info h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Description styling */
+  .course-info p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.4;
+  }
+  
+  /* Date styling (small text) */
+  .course-info small {
+    display: block;
+    margin-top: 10px;
+    color: #888;
+    font-size: 0.9em;
+  }
+  
+  /* Optional: Add some general page margin for better overall layout */
+  body {
+    margin: 20px;
+    font-family: Arial, sans-serif; /* Use a clean font for better readability */
+  }
+  .view-modules-btn {
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 20px;
+    background-color: #3f51b5;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s;
+  }

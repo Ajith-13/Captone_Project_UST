@@ -1,0 +1,40 @@
+.trainer-landing-hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background: linear-gradient(to right, #fefce8, #fef9c3); */
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .trainer-landing-hero h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+  
+  .trainer-landing-hero .subtitle {
+    font-size: 1.1rem;
+    color: #334155;
+    margin-bottom: 2rem;
+    max-width: 600px;
+  }
+  
+  .add-course-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-course-btn:hover {
+    background-color: #059669;
+  }
+  
