@@ -1,0 +1,31 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #f0f4f8, #d9e2ec);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  button {
+    outline: none;
+  }
+  
+  @media (max-width: 768px) {
+    .welcome-content h1 {
+      font-size: 2.2rem;
+    }
+  
+    .auth-buttons .register-btn,
+    .auth-buttons .login-btn {
+      width: 100px;
+      margin: 0.5rem;
+    }
+  
+    .nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+  
