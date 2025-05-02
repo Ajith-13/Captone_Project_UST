@@ -1,6 +1,0 @@
-@CaptoneProject.Services.AssignmentAPI_HostAddress = http://localhost:5171
-
-GET {{CaptoneProject.Services.AssignmentAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
