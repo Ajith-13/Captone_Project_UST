@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "CaptoneProject.Services.AuthAPI\\CaptoneProject.Services.AuthAPI.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "CaptoneProject.Services.CourseAPI\\CaptoneProject.Services.CourseAPI.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "CaptoneProject.Services.AssignmentAPI\\CaptoneProject.Services.AssignmentAPI.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "ApiGateway\\ApiGateway.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "CaptoneProject.Services.NotesAPI\\CaptoneProject.Services.NotesAPI.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
