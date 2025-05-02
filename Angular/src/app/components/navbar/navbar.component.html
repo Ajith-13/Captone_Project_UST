@@ -1,0 +1,43 @@
+<nav class="navbar">
+  <div class="logo">🎓 Digital Learning</div>
+
+  <div class="nav-links">
+    <!-- Home Links Based on Role -->
+    <a *ngIf="role === 'ADMIN'" routerLink="/admin-landingpage" routerLinkActive="active-link">Home</a>
+    <a *ngIf="role === 'TRAINER'" routerLink="/trainerlandingpage" routerLinkActive="active-link">Home</a>
+    <a *ngIf="!isLoggedIn" routerLink="/welcome" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+
+    <!-- Shared Pages -->
+    <a routerLink="/aboutus" routerLinkActive="active-link">About</a>
+    <a routerLink="/contact" routerLinkActive="active-link">Contact</a>
+
+    <!-- Admin Only -->
+    <a *ngIf="role === 'ADMIN'" routerLink="/admin-trainer-approve" routerLinkActive="active-link">Approve Trainers</a>
+
+    <!-- Trainer Only -->
+    <a *ngIf="role === 'TRAINER'" routerLink="/addcourse" routerLinkActive="active-link">Add Course</a>
+    <a *ngIf="role === 'TRAINER'" routerLink="/viewcourse" routerLinkActive="active-link">Preview</a>
+    <a *ngIf="role === 'TRAINER'" routerLink="/addmodule" routerLinkActive="active-link">Add Module</a>
+    <a *ngIf="role === 'TRAINER'" routerLink="/addassignmentquestion" routerLinkActive="active-link">Add Assignment</a>
+    <a *ngIf="role === 'TRAINER'" routerLink="/reviewassignment" routerLinkActive="active-link">Review Assignment</a>
+
+
+    <a *ngIf="role === 'LEARNER'" routerLink="/viewcourses" routerLinkActive="active-link">Courses</a>
+    <a *ngIf="role === 'LEARNER'" routerLink="/submittedassignment" routerLinkActive="active-link">Assessments</a>
+    <!-- <a *ngIf="role === 'LEARNER'" routerLink="/notes" routerLinkActive="active-link">Notes</a> -->
+  </div>
+
+  <div class="nav-buttons">
+    <!-- Logged In State -->
+    <ng-container *ngIf="isLoggedIn; else loginButtons">
+      <span class="user-info">👋 {{ userName }}</span>
+      <a class="logout-link" (click)="logout()">Logout</a>
+    </ng-container>
+
+    <!-- Not Logged In -->
+    <ng-template #loginButtons>
+      <a (click)="trainerLogin()">Trainer Login</a>
+      <a (click)="adminLogin()">Admin Login</a>
+    </ng-template>
+  </div>
+</nav>
