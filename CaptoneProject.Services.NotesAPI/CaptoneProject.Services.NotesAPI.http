@@ -1,6 +1,0 @@
-@CaptoneProject.Services.NotesAPI_HostAddress = http://localhost:5000
-
-GET {{CaptoneProject.Services.NotesAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
