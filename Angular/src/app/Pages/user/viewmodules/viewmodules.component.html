@@ -1,0 +1,19 @@
+<app-navbar></app-navbar>
+<div class="module-container">
+  <div *ngIf="modules.length === 0">
+    <p>No modules found.</p>
+  </div>
+
+  <div *ngFor="let module of modules; let i = index" class="module-card">
+    <h3>Module {{ i + 1 }}</h3>
+    <h3>{{ module.title }}</h3>
+    <p>{{ module.description }}</p>
+    <video *ngIf="module.filePath" controls width="400">
+      <source [src]="'http://localhost:5276' + module.filePath" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <button class="view-modules-btn" [routerLink]="['/usersinglemodules', module.id]">
+     Explore More <span class="arrow"> ➔</span>
+      </button>
+  </div>
+</div>

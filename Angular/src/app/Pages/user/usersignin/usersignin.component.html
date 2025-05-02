@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<div class="form-container">
+  <h2>User Login</h2>
+  <form #loginForm="ngForm" (ngSubmit)="onuserLogin()" novalidate>
+    <div class="form-field">
+      <input 
+        type="email" 
+        name="email" 
+        [(ngModel)]="formData.email" 
+        placeholder="Email ID" 
+        required 
+        #email="ngModel">
+      
+      <!-- Email validation error message -->
+      <div *ngIf="email.touched && email.invalid" class="error-message">
+        <div *ngIf="email.errors?.['required']">Email is required.</div>
+        <div *ngIf="email.errors?.['email']">Please enter a valid email.</div>
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <input 
+        type="password" 
+        name="password" 
+        [(ngModel)]="formData.password" 
+        placeholder="Password" 
+        required 
+        #password="ngModel">
+
+      <!-- Password validation error message -->
+      <div *ngIf="password.touched && password.invalid" class="error-message">
+        <div *ngIf="password.errors?.['required']">Password is required.</div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Submit</button>
+  </form>
+</div>

@@ -1,0 +1,115 @@
+/* trainer-courses.component.css */
+
+/* Loading and Error Styles */
+.loading, .error {
+    text-align: center;
+    font-size: 1.2em;
+    padding: 20px;
+  }
+  
+  .loading p {
+    color: #007bff;
+  }
+  
+  .error p {
+    color: #e74c3c;
+  }
+  
+  /* Courses List Styles */
+  .courses-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .course-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  /* Course Card Styles */
+  .course-card {
+    width: 300px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .course-thumbnail img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .course-info {
+    padding: 15px;
+  }
+  
+  .course-info h3 {
+    font-size: 1.5em;
+    margin: 0 0 10px 0;
+    color: #333;
+  }
+  
+  .course-info p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .course-info small {
+    font-size: 0.9em;
+    color: #777;
+  }
+  
+  /* Button Styles */
+  .view-modules-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    margin-left: 15px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .view-modules-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .view-modules-btn .arrow {
+    margin-left: 10px;
+    font-size: 1.2em;
+  }
+  
+  /* No Courses Found Styles */
+  .no-courses {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
+    color: #555;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  

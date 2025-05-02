@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+
+<!-- Module details container -->
+<div *ngIf="moduleDetails" class="module-details-container">
+  <h2>{{ moduleDetails.title }}</h2>
+  <p>{{ moduleDetails.description }}</p>
+  
+  <!-- Video section -->
+  <video *ngIf="moduleDetails.filePath" controls width="100%">
+    <source [src]="'http://localhost:5276' + moduleDetails.filePath" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <div *ngIf="assignments && assignments.length > 0" class="assignments-section">
+    <h3>Assignment Questions</h3>
+    <ul>
+      <li *ngFor="let assignment of assignments">
+        <strong>{{ assignment.title }}</strong>
+        <p>{{ assignment.description }}</p>
+        <p><strong>Total Marks:</strong> {{ assignment.totalMarks }}</p>
+  
+        <!-- File upload for assignment -->
+        <input type="file" (change)="onFileSelected($event, assignment)" accept=".pdf" />
+        <button (click)="submitAssignment(assignment)" [disabled]="!assignment.file">Submit Assignment</button>
+        
+        <!-- Display message for success or failure -->
+        <p *ngIf="assignment.submissionStatus">{{ assignment.submissionStatus }}</p>
+      </li>
+    </ul>
+  </div>
+  
+
+<!-- Loading state when module details are not available -->
+<div *ngIf="!moduleDetails" class="loading-text">
+  Loading module details...
+</div>

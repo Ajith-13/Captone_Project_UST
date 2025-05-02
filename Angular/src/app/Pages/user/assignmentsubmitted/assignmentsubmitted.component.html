@@ -1,0 +1,20 @@
+<app-navbar></app-navbar>
+<!-- assignmentsubmitted.component.html -->
+<div class="center-assignment">
+<div *ngIf="submittedAssignments.length > 0; else noAssignments">
+    <div *ngFor="let assignment of submittedAssignments">
+      <div class="assignment">
+        <h2>Assignment: {{ assignment.assignmentQuestion?.title }}</h2>
+        <p><strong>Description:</strong> {{ assignment.assignmentQuestion?.description }}</p>
+        <p><strong>Due Date:</strong> {{ assignment.assignmentQuestion?.dueDate | date }}</p>
+        <p><strong>Marks Scored:</strong> {{ assignment.marksScored }}/{{assignment.assignmentQuestion?.totalMarks}}</p>
+        <p><strong>Submitted At:</strong> {{ assignment.submittedAt | date:'short' }}</p>
+      </div>
+      <hr />
+    </div>
+  </div>
+  
+  <ng-template #noAssignments>
+    <p>No assignments have been submitted yet.</p>
+  </ng-template>
+</div>

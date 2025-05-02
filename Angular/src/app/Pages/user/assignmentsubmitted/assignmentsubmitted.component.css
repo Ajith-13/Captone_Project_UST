@@ -1,0 +1,92 @@
+/* assignmentsubmitted.component.css */
+
+/* Main container for the page */
+.center-assignment{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+.assignments-section {
+    padding: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f4f6f8, #ffffff); /* Subtle gradient background */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    text-align: center;
+  }
+  
+  /* Individual assignment card */
+  .assignment {
+    background-color: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0e6ed;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow effect for depth */
+    width: 80%; /* Control the width of the cards */
+    max-width: 750px; /* Set a maximum width */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .assignment:hover {
+    transform: translateY(-5px); /* Lift the card up on hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Increase shadow on hover */
+  }
+  
+  h2 {
+    color: #1c8adb;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  p {
+    color: #555;
+    margin-bottom: 12px;
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+  
+  strong {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  hr {
+    border-top: 1px solid #d3d7de;
+    margin: 20px 0;
+    opacity: 0.7;
+    width: 80%;
+    max-width: 700px;
+  }
+  
+  /* No assignments message styling */
+  .no-assignments {
+    padding: 20px;
+    color: #7f8c8d;
+    font-style: italic;
+    font-size: 1.2em;
+    margin-top: 30px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .assignments-section {
+      padding: 20px;
+    }
+  
+    .assignment {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    h2 {
+      font-size: 1.5em;
+    }
+  }
+  

@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<div class="trainer-table-container">
+    <h2>Trainer Approval Panel</h2>
+    <table class="trainer-table">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trainer of trainers; let i = index">
+            <td>{{ i + 1 }}</td> 
+          <td>{{ trainer.userName }}</td>
+          <td>{{ trainer.email }}</td>
+          <td>  {{ trainer.approvalStatus.toLowerCase() === 'approved' ? 'Approved' : 'Pending' }}</td>
+          <td>
+            <button (click)="viewTrainer(trainer)">👁 View</button>
+             <button (click)="toggleApproval(trainer)">
+      {{ trainer.approvalStatus.toLowerCase() === 'pending' ? '✅ Approve' : '❌ Deny' }}
+    </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

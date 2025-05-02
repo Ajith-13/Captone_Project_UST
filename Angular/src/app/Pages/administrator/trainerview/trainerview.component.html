@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+<div *ngIf="trainer; else loading">
+    <h2>Trainer Details</h2>
+    <p><strong>Name:</strong> {{ trainer.userName }}</p>
+    <p><strong>Email:</strong> {{ trainer.email }}</p>
+    <p><strong>Status:</strong> {{ trainer.approvalStatus }}</p>
+   <div class="approval-action">
+    <button *ngIf="trainer.approvalStatus.toLowerCase() === 'pending'" (click)="toggleApproval(true)">
+      ✅ Approve
+    </button>
+    <button *ngIf="trainer.approvalStatus.toLowerCase() === 'approved'" (click)="toggleApproval(false)">
+      ❌ Deny
+    </button>
+   </div>
+  
+    <div *ngIf="trainer.certificatePath">
+        <h4>Certificate</h4>
+        <ng-container *ngIf="isImage(trainer.certificatePath)">
+            <img [src]="trainer.certificatePath" alt="Certificate" width="200">
+        </ng-container>
+        <ng-container *ngIf="isPdf(trainer.certificatePath)">
+            <object [data]="getCertificateUrl()" type="application/pdf" width="600" height="400">
+                <p>Your browser does not support PDFs. <a [href]="getCertificateUrl()">Download the PDF</a>.</p>
+            </object>
+        </ng-container>
+        <ng-container *ngIf="isDocument(trainer.certificatePath)">
+            <a [href]="getCertificateUrl()" target="_blank">📄 View Certificate</a>
+        </ng-container>
+    </div>
+
+    <div *ngIf="trainer.resumePath">
+        <h4>Resume</h4>
+        <ng-container *ngIf="isImage(trainer.resumePath)">
+            <img [src]="trainer.resumePath" alt="Resume" width="200">
+        </ng-container>
+        <ng-container *ngIf="isPdf(trainer.resumePath)">
+            <object [data]="getResumeUrl()" type="application/pdf" width="600" height="400">
+                <p>Your browser does not support PDFs. <a [href]="getResumeUrl()">Download the PDF</a>.</p>
+            </object>
+        </ng-container>
+        <ng-container *ngIf="isDocument(trainer.resumePath)">
+            <a [href]="getResumeUrl()" target="_blank">📄 View Resume</a>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #loading>
+    <p>Loading trainer details...</p>
+</ng-template>

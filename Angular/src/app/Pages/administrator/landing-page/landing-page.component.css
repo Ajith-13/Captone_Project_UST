@@ -1,0 +1,37 @@
+.admin-landing-hero {
+    background: linear-gradient(135deg, #e6f0ff, #f9fcff);
+    padding: 6rem 2rem;
+    text-align: center;
+    min-height: calc(100vh - 70px); /* subtract navbar height if needed */
+    font-family: 'Segoe UI', sans-serif;
+    color: #0a2540;
+  }
+  
+  .admin-landing-hero h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    font-size: 1.25rem;
+    color: #4a5568;
+    margin-bottom: 2rem;
+  }
+  
+  .approve-btn {
+    font-size: 1.1rem;
+    background-color: transparent;
+    color: #0a2540;
+    padding: 0.8rem 2rem;
+    border: 2px solid #0a2540;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .approve-btn:hover {
+    background-color: #0a2540;
+    color: white;
+  }
+  

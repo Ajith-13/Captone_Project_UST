@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<!-- trainer-courses.component.html -->
+<div *ngIf="loading" class="loading">
+    <p>Loading courses...</p>
+  </div>
+  
+  <div *ngIf="errorMessage" class="error">
+    <p>{{ errorMessage }}</p>
+  </div>
+  
+  <div *ngIf="!loading && courses.length > 0" class="courses-list">
+    <div class="course-cards">
+      <div class="course-card" *ngFor="let course of courses">
+        <div class="course-thumbnail">
+          <img [src]="'http://localhost:5276'+course.thumbnailImagePath" alt="{{ course.title }} thumbnail">
+        </div>
+        <div class="course-info">
+          <h3>{{ course.title }}</h3>
+          <p>{{ course.description }}</p>
+          <!-- <small>Created on: {{ course.createdOn | date: 'shortDate' }}</small> -->
+        </div>
+        <button class="view-modules-btn"  [routerLink]="['/usermodule', course.id]">
+          View Modules <span class="arrow">➔</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="!loading && courses.length === 0" class="no-courses">
+    <p>No courses found. You haven't created any courses yet.</p>
+  </div>
+  

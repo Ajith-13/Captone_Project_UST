@@ -1,0 +1,156 @@
+/* Style the module details container */
+.module-details-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Title Styling */
+  .module-details-container h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  
+  /* Description Styling */
+  .module-details-container p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  /* Video Container */
+  .module-details-container video {
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    max-width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Loading Text Styling */
+  .module-details-container .loading-text {
+    font-size: 1.2rem;
+    color: #888;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin-top: 30px;
+  }
+  
+  /* Loader Animation */
+  .module-details-container .loading-text:before {
+    content: "🔄";
+    font-size: 2rem;
+    margin-right: 10px;
+    animation: spin 1.5s infinite linear;
+  }
+  
+  /* Spinner Animation */
+  /* Container for the assignment section */
+.assignments-section {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading style */
+  .assignments-section h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Style for each assignment item */
+  .assignments-section ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .assignments-section li {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .assignments-section li strong {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  /* Style for assignment description and total marks */
+  .assignments-section p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  .assignments-section p strong {
+    color: #333;
+  }
+  
+  /* File input and button styling */
+  .assignments-section input[type="file"] {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    display: block;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .assignments-section button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Disable button when no file is selected */
+  .assignments-section button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Hover effect for the submit button */
+  .assignments-section button:hover:not([disabled]) {
+    background-color: #45a049;
+  }
+  
+  /* Submission status message */
+  .assignments-section p.submissionStatus {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .assignments-section p.submissionStatus.success {
+    color: green;
+  }
+  
+  .assignments-section p.submissionStatus.error {
+    color: red;
+  }
+  
