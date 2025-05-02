@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\CaptoneProject.Services.AssignmentAPI.props" />
+</Project>

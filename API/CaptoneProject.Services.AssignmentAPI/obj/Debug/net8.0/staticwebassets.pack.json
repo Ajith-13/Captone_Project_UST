@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf",
+      "PackagePath": "staticwebassets\\thumbnails\\2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf"
+    },
+    {
+      "Id": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg",
+      "PackagePath": "staticwebassets\\thumbnails\\353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg"
+    },
+    {
+      "Id": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf",
+      "PackagePath": "staticwebassets\\thumbnails\\5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf"
+    },
+    {
+      "Id": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg",
+      "PackagePath": "staticwebassets\\thumbnails\\5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.CaptoneProject.Services.AssignmentAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.CaptoneProject.Services.AssignmentAPI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.CaptoneProject.Services.AssignmentAPI.props",
+      "PackagePath": "build\\CaptoneProject.Services.AssignmentAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.CaptoneProject.Services.AssignmentAPI.props",
+      "PackagePath": "buildMultiTargeting\\CaptoneProject.Services.AssignmentAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.CaptoneProject.Services.AssignmentAPI.props",
+      "PackagePath": "buildTransitive\\CaptoneProject.Services.AssignmentAPI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

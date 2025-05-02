@@ -1,0 +1,434 @@
+{
+  "Version": 1,
+  "Hash": "tpv1nYVMfrjO94Hr6Qh5/sBuDmO0ZIz41Jc27iTzmp4=",
+  "Source": "CaptoneProject.Services.AssignmentAPI",
+  "BasePath": "_content/CaptoneProject.Services.AssignmentAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "CaptoneProject.Services.AssignmentAPI\\wwwroot",
+      "Source": "CaptoneProject.Services.AssignmentAPI",
+      "ContentRoot": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\",
+      "BasePath": "_content/CaptoneProject.Services.AssignmentAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf",
+      "SourceId": "CaptoneProject.Services.AssignmentAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\",
+      "BasePath": "_content/CaptoneProject.Services.AssignmentAPI",
+      "RelativePath": "thumbnails/2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "1n89kdz3ms",
+      "Integrity": "/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\thumbnails\\2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf"
+    },
+    {
+      "Identity": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg",
+      "SourceId": "CaptoneProject.Services.AssignmentAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\",
+      "BasePath": "_content/CaptoneProject.Services.AssignmentAPI",
+      "RelativePath": "thumbnails/353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "l8oixwu9oh",
+      "Integrity": "y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\thumbnails\\353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg"
+    },
+    {
+      "Identity": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf",
+      "SourceId": "CaptoneProject.Services.AssignmentAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\",
+      "BasePath": "_content/CaptoneProject.Services.AssignmentAPI",
+      "RelativePath": "thumbnails/5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "1n89kdz3ms",
+      "Integrity": "/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\thumbnails\\5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf"
+    },
+    {
+      "Identity": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg",
+      "SourceId": "CaptoneProject.Services.AssignmentAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\",
+      "BasePath": "_content/CaptoneProject.Services.AssignmentAPI",
+      "RelativePath": "thumbnails/5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "l8oixwu9oh",
+      "Integrity": "y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\thumbnails\\5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "thumbnails/2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.1n89kdz3ms.pdf",
+      "AssetFile": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "301808"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 27 Apr 2025 14:16:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1n89kdz3ms"
+        },
+        {
+          "Name": "label",
+          "Value": "thumbnails/2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U="
+        }
+      ]
+    },
+    {
+      "Route": "thumbnails/2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf",
+      "AssetFile": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "301808"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 27 Apr 2025 14:16:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U="
+        }
+      ]
+    },
+    {
+      "Route": "thumbnails/353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg",
+      "AssetFile": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12217"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 11:24:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ="
+        }
+      ]
+    },
+    {
+      "Route": "thumbnails/353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.l8oixwu9oh.jpg",
+      "AssetFile": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12217"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 11:24:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l8oixwu9oh"
+        },
+        {
+          "Name": "label",
+          "Value": "thumbnails/353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ="
+        }
+      ]
+    },
+    {
+      "Route": "thumbnails/5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.1n89kdz3ms.pdf",
+      "AssetFile": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "301808"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 27 Apr 2025 14:07:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1n89kdz3ms"
+        },
+        {
+          "Name": "label",
+          "Value": "thumbnails/5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U="
+        }
+      ]
+    },
+    {
+      "Route": "thumbnails/5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf",
+      "AssetFile": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "301808"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 27 Apr 2025 14:07:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U="
+        }
+      ]
+    },
+    {
+      "Route": "thumbnails/5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg",
+      "AssetFile": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12217"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 11:24:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ="
+        }
+      ]
+    },
+    {
+      "Route": "thumbnails/5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.l8oixwu9oh.jpg",
+      "AssetFile": "D:\\DotNet\\Captone_Project_UST\\CaptoneProject.Services.AssignmentAPI\\wwwroot\\thumbnails\\5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12217"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 11:24:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l8oixwu9oh"
+        },
+        {
+          "Name": "label",
+          "Value": "thumbnails/5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ="
+        }
+      ]
+    }
+  ]
+}

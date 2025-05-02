@@ -1,0 +1,76 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\thumbnails\2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>CaptoneProject.Services.AssignmentAPI</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/CaptoneProject.Services.AssignmentAPI</BasePath>
+      <RelativePath>thumbnails/2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>1n89kdz3ms</Fingerprint>
+      <Integrity>/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\thumbnails\2a1b7480-7aff-4513-9557-10d46eabc959_resume-sample.pdf'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\thumbnails\353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>CaptoneProject.Services.AssignmentAPI</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/CaptoneProject.Services.AssignmentAPI</BasePath>
+      <RelativePath>thumbnails/353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>l8oixwu9oh</Fingerprint>
+      <Integrity>y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\thumbnails\353fff29-f0e7-4a02-b102-563ac3b13e7b_Thumbnail.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\thumbnails\5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>CaptoneProject.Services.AssignmentAPI</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/CaptoneProject.Services.AssignmentAPI</BasePath>
+      <RelativePath>thumbnails/5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>1n89kdz3ms</Fingerprint>
+      <Integrity>/WuR7xbPvP4LKQP6bToLrVef499GKuKJ/qtLivLcP+U=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\thumbnails\5275a166-16a4-4593-beea-31c545ae7d9f_resume-sample.pdf'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\thumbnails\5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>CaptoneProject.Services.AssignmentAPI</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/CaptoneProject.Services.AssignmentAPI</BasePath>
+      <RelativePath>thumbnails/5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>l8oixwu9oh</Fingerprint>
+      <Integrity>y1MA/hG3EYutcAVlmHAHBpAEXFdATqOPs2ubriZCVsQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\thumbnails\5718055d-822e-41f4-8b72-1c7772e3aea8_Thumbnail.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+  </ItemGroup>
+</Project>

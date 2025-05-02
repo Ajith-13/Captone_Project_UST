@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\CaptoneProject.Services.AssignmentAPI.props" />
+</Project>

@@ -1,0 +1,211 @@
+[
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentController",
+    "Method": "SubmitAssignment",
+    "RelativePath": "api/Assignment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LearnerId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FilePath",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "AssignmentQuestionId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentController",
+    "Method": "GetAllAssignment",
+    "RelativePath": "api/Assignment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentController",
+    "Method": "UpdateMarks",
+    "RelativePath": "api/Assignment/{assignmentId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "assignmentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateMarkDto",
+        "Type": "CaptoneProject.Services.AssignmentAPI.Data.Dto.Mark.UpdateMarkDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentController",
+    "Method": "GetByAssignmentId",
+    "RelativePath": "api/Assignment/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentController",
+    "Method": "GetSubmittedAssignments",
+    "RelativePath": "api/Assignment/Submitted",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentController",
+    "Method": "GetAssignmentsByTrainerId",
+    "RelativePath": "api/Assignment/TrainerAssignments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentQuestionController",
+    "Method": "AddAssignment",
+    "RelativePath": "api/AssignmentQuestion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "assignmentDto",
+        "Type": "CaptoneProject.Services.AssignmentAPI.Data.Dto.Assignment.AssignmentQuestionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentQuestionController",
+    "Method": "Delete",
+    "RelativePath": "api/AssignmentQuestion/{assignmentId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "assignmentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentQuestionController",
+    "Method": "GetAssignmentById",
+    "RelativePath": "api/AssignmentQuestion/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentQuestionController",
+    "Method": "UpdateAssignment",
+    "RelativePath": "api/AssignmentQuestion/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "assignmentDto",
+        "Type": "CaptoneProject.Services.AssignmentAPI.Data.Dto.Assignment.AssignmentQuestionDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.AssignmentQuestionController",
+    "Method": "GetAssignmentsByModuleId",
+    "RelativePath": "api/AssignmentQuestion/module/{moduleId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "moduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.StreakAndLeaderBoardController",
+    "Method": "GetLeaderboard",
+    "RelativePath": "api/StreakAndLeaderBoard/leaderboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CaptoneProject.Services.AssignmentAPI.Controllers.StreakAndLeaderBoardController",
+    "Method": "UpdateStreak",
+    "RelativePath": "api/StreakAndLeaderBoard/update-streak/{learnerId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "learnerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
